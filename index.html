@@ -505,34 +505,8 @@
                 return text.replace(/[\u0591-\u05C7]/g, '');
             },
 
-            chunkText(text, maxLength = 100) {
-                const parts = text.split(/([.,?!])/);
-                const chunks = [];
-                let currentChunk = '';
-
-                for (let i = 0; i < parts.length; i++) {
-                    const part = parts[i];
-                    if (currentChunk.length + part.length < maxLength) {
-                        currentChunk += part;
-                    } else {
-                        if (currentChunk.trim()) {
-                            chunks.push(currentChunk.trim());
-                        }
-                        currentChunk = part;
-                    }
-                }
-                if (currentChunk.trim()) {
-                    chunks.push(currentChunk.trim());
-                }
-
-                return chunks.length ? chunks : [text];
-            },
-
             stopAudio() {
-                if (this.state.currentAudio) {
-                    this.state.currentAudio.pause();
-                    this.state.currentAudio = null;
-                }
+                window.speechSynthesis.cancel();
                 this.state.isPlaying = false;
 
                 const btn = document.getElementById('tts-btn');
@@ -564,36 +538,31 @@
 
                 try {
                     const cleanText = this.removeNikud(story.content);
-                    const chunks = this.chunkText(cleanText, 150);
+                    const utterance = new SpeechSynthesisUtterance(cleanText);
+                    utterance.lang = 'he-IL';
+                    utterance.rate = 0.85;
+                    utterance.pitch = 1.1;
 
-                    for (const chunk of chunks) {
-                        if (!this.state.isPlaying) break;
+                    // Try to find a Hebrew voice
+                    const voices = window.speechSynthesis.getVoices();
+                    const hebrewVoice = voices.find(v => v.lang.startsWith('he'));
+                    if (hebrewVoice) utterance.voice = hebrewVoice;
 
-                        await new Promise((resolve) => {
-                            const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=he&q=${encodeURIComponent(chunk)}`;
-                            this.state.currentAudio = new Audio(url);
+                    utterance.onend = () => {
+                        this.stopAudio();
+                    };
 
-                            this.state.currentAudio.onended = () => {
-                                resolve();
-                            };
+                    utterance.onerror = (e) => {
+                        console.error('TTS Error', e);
+                        this.stopAudio();
+                    };
 
-                            this.state.currentAudio.onerror = (e) => {
-                                console.error('TTS Error', e);
-                                resolve();
-                            };
-
-                            this.state.currentAudio.play().catch(e => {
-                                console.error('Play failed', e);
-                                resolve();
-                            });
-                        });
-                    }
+                    window.speechSynthesis.speak(utterance);
                 } catch (err) {
                     console.error(err);
                     alert('שגיאה בהשמעת הסיפור');
+                    this.stopAudio();
                 }
-
-                this.stopAudio();
             }
         };
 
