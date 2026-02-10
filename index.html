@@ -1,576 +1,1100 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>קוראים בכיף - סיפורים לילדים</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Rubik for modern Hebrew look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Custom Styles -->
-    <style>
-        /* Custom Animations */
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Confetti Particles */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-            }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Rubik', 'sans-serif'],
-                    },
-                    colors: {
-                        'brand-blue': '#4facfe',
-                        'brand-purple': '#a18cd1',
-                        'brand-yellow': '#fbc2eb',
-                        'brand-green': '#a6c1ee',
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>קוראים בכיף! 📚</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { heebo: ['Heebo','sans-serif'], fredoka: ['Fredoka','sans-serif'] },
+      colors: {
+        sky: { top:'#7EC8E3', bottom:'#C9E9F6' },
+        grass: { light:'#8BC34A', dark:'#6B9B37' },
+        candy: { pink:'#FF6B9D', purple:'#C084FC', blue:'#60A5FA', yellow:'#FBBF24', green:'#34D399', orange:'#FB923C' },
+        nav: { home:'#FF6B6B', books:'#4ECDC4', words:'#FFD93D', cards:'#A78BFA', prizes:'#FF9A3C' }
+      },
+      animation: {
+        'float':'float 3s ease-in-out infinite',
+        'pop':'pop 0.3s ease-out',
+        'slide-up':'slideUp 0.4s ease-out',
+        'confetti-fall':'confettiFall 1.5s ease-in forwards',
+        'sun-pulse':'sunPulse 4s ease-in-out infinite',
+        'cloud-1':'floatCloud 25s linear infinite',
+        'cloud-2':'floatCloud 35s linear 8s infinite',
+        'cloud-3':'floatCloud 40s linear 15s infinite',
+      },
+      keyframes: {
+        float: { '0%,100%':{ transform:'translateY(0)' }, '50%':{ transform:'translateY(-10px)' } },
+        pop: { '0%':{ transform:'scale(0)' }, '80%':{ transform:'scale(1.1)' }, '100%':{ transform:'scale(1)' } },
+        slideUp: { '0%':{ transform:'translateY(30px)', opacity:0 }, '100%':{ transform:'translateY(0)', opacity:1 } },
+        confettiFall: { '0%':{ transform:'translateY(-100vh) rotate(0deg)', opacity:1 }, '100%':{ transform:'translateY(100vh) rotate(720deg)', opacity:0 } },
+        sunPulse: { '0%,100%':{ transform:'scale(1)', boxShadow:'0 0 30px rgba(255,217,61,0.5)' }, '50%':{ transform:'scale(1.05)', boxShadow:'0 0 40px rgba(255,217,61,0.6)' } },
+        floatCloud: { '0%':{ transform:'translateX(100vw)' }, '100%':{ transform:'translateX(-150px)' } },
+      }
+    }
+  }
+}
+</script>
+<style>
+*{font-family:'Heebo',sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:linear-gradient(180deg,#7EC8E3 0%,#C9E9F6 60%,#E8F5E9 80%,#8BC34A 100%);min-height:100vh;overflow-x:hidden;}
+h1,h2,h3,.font-title{font-family:'Fredoka',sans-serif;}
+.cloud{position:fixed;background:white;border-radius:50%;opacity:0.7;z-index:0;pointer-events:none;}
+.cloud::before,.cloud::after{content:'';position:absolute;background:white;border-radius:50%;}
+.cloud-1{width:80px;height:35px;top:8%;right:-100px;animation:floatCloud 25s linear infinite;}
+.cloud-1::before{width:45px;height:45px;top:-20px;right:15px;}
+.cloud-1::after{width:35px;height:35px;top:-12px;right:45px;}
+.cloud-2{width:60px;height:25px;top:15%;right:-80px;animation:floatCloud 35s linear 8s infinite;opacity:0.5;}
+.cloud-2::before{width:30px;height:30px;top:-15px;right:10px;}
+.cloud-2::after{width:25px;height:25px;top:-8px;right:30px;}
+.cloud-3{width:100px;height:40px;top:5%;right:-120px;animation:floatCloud 40s linear 15s infinite;opacity:0.6;}
+.cloud-3::before{width:55px;height:55px;top:-25px;right:20px;}
+.cloud-3::after{width:40px;height:40px;top:-15px;right:55px;}
+.sun{position:fixed;top:20px;left:20px;width:60px;height:60px;background:radial-gradient(circle,#FFD93D,#FF9A3C);border-radius:50%;z-index:1;box-shadow:0 0 30px rgba(255,217,61,0.5),0 0 60px rgba(255,217,61,0.2);animation:sunPulse 4s ease-in-out infinite;pointer-events:none;}
+.grass-hills{position:fixed;bottom:0;left:0;right:0;height:80px;z-index:0;pointer-events:none;background:linear-gradient(180deg,transparent 0%,#8BC34A 40%,#6B9B37 100%);border-radius:60% 60% 0 0 / 100% 100% 0 0;}
+.top-bar{position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#FF6B9D 0%,#C44569 100%);padding:10px 16px;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,0.15);}
+.top-bar-title{font-family:'Fredoka',sans-serif;color:white;font-size:20px;font-weight:700;text-shadow:0 2px 4px rgba(0,0,0,0.15);}
+.top-bar-stats{display:flex;gap:8px;}
+.stat-pill{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.2);padding:3px 8px;border-radius:20px;font-size:12px;color:white;font-weight:600;}
+.top-bar-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FFD93D,#FF9A3C);display:flex;align-items:center;justify-content:center;font-size:22px;border:3px solid rgba(255,255,255,0.5);cursor:pointer;transition:transform 0.2s;}
+.top-bar-avatar:active{transform:scale(0.92);}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;align-items:center;padding:6px 4px 12px;background:white;border-top:1px solid #f0f0f0;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,0.08);}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 6px;cursor:pointer;transition:all 0.2s;min-width:56px;position:relative;}
+.nav-item:active{transform:scale(0.92);}
+.nav-icon{width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform 0.2s;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.nav-item.active .nav-icon{transform:scale(1.12) translateY(-2px);}
+.nav-item.active .nav-label{font-weight:700;color:#2D3748;}
+.nav-active-dot{position:absolute;top:0;width:6px;height:6px;border-radius:50%;background:#FF6B9D;}
+.nav-icon-home{background:linear-gradient(135deg,#FF6B6B,#ee5a24);}
+.nav-icon-books{background:linear-gradient(135deg,#4ECDC4,#2ecc71);}
+.nav-icon-words{background:linear-gradient(135deg,#FFD93D,#f39c12);}
+.nav-icon-cards{background:linear-gradient(135deg,#A78BFA,#8B5CF6);}
+.nav-icon-prizes{background:linear-gradient(135deg,#FF9A3C,#e17055);}
+.nav-label{font-size:11px;color:#4A5568;font-weight:500;}
+.parent-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.parent-overlay.show{opacity:1;pointer-events:all;}
+.parent-panel{position:fixed;bottom:0;left:0;right:0;background:white;border-radius:24px 24px 0 0;padding:20px;max-height:70vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
+.parent-overlay.show .parent-panel{transform:translateY(0);}
+.card{background:rgba(255,255,255,0.92);border-radius:20px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:all 0.2s;backdrop-filter:blur(8px);}
+.card:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,0,0,0.12);}
+.btn-primary{background:linear-gradient(135deg,#FF6B9D,#C44569);color:white;border:none;border-radius:16px;padding:14px 24px;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(255,107,157,0.3);}
+.btn-primary:active{transform:scale(0.96);}
+.btn-quiz{background:linear-gradient(135deg,#4ECDC4,#2ecc71);color:white;border:none;border-radius:16px;padding:14px 24px;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(78,205,196,0.3);}
+.btn-quiz:active{transform:scale(0.96);}
+.stories-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+.stories-scroll::-webkit-scrollbar{display:none;}
+.story-card-mini{flex-shrink:0;width:130px;background:white;border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,0.08);scroll-snap-align:start;cursor:pointer;transition:all 0.2s;border:2px solid transparent;}
+.story-card-mini:active{transform:scale(0.96);border-color:#FF6B9D;}
+.word-chip{display:inline-flex;align-items:center;gap:8px;background:white;border-radius:20px;padding:8px 14px;margin:4px;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:all 0.2s;}
+.word-chip:active{transform:scale(0.96);}
+.word-chip-nikud{font-weight:700;font-size:16px;}
+.word-chip-meaning{color:#4A5568;font-size:12px;}
+.story-word{cursor:pointer;transition:background-color 0.15s;border-radius:4px;padding:2px 3px;display:inline;}
+.story-word:hover{background:rgba(192,132,252,0.15);}
+.story-word:active{background:rgba(192,132,252,0.25);}
+.story-word.highlight{background:rgba(255,187,36,0.35);}
+.story-word.vocab-word{text-decoration:underline;text-decoration-color:#C084FC;text-decoration-style:wavy;text-underline-offset:4px;}
+.badge-locked{filter:grayscale(1);opacity:0.4;}
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:50%;top:-20px;z-index:9999;pointer-events:none;}
+.font-small .story-text{font-size:1.2rem;line-height:2.2;}
+.font-medium .story-text{font-size:1.5rem;line-height:2.5;}
+.font-large .story-text{font-size:1.9rem;line-height:2.8;}
+.difficulty-1{border-right:4px solid #34D399;}
+.difficulty-2{border-right:4px solid #60A5FA;}
+.difficulty-3{border-right:4px solid #FBBF24;}
+.difficulty-4{border-right:4px solid #FB923C;}
+.difficulty-5{border-right:4px solid #FF6B9D;}
+.syllable-popup{position:absolute;background:white;border-radius:12px;padding:8px 16px;box-shadow:0 8px 30px rgba(0,0,0,0.2);z-index:50;font-size:1.2rem;border:2px solid #C084FC;}
+.progress-bar-bg{height:12px;background:#e8e8e8;border-radius:8px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#4ECDC4,#2ecc71);border-radius:8px;transition:width 0.5s;}
+.greeting-card{background:linear-gradient(135deg,#FFF3E0,#FFECB3);border-radius:16px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.fav-btn{font-size:22px;cursor:pointer;transition:all 0.2s;filter:grayscale(1);opacity:0.4;}
+.fav-btn.active{filter:none;opacity:1;}
+.fav-btn:active{transform:scale(1.2);}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:#C084FC;border-radius:3px;}
+@media(max-width:420px){.card{padding:12px;}.nav-icon{width:42px;height:42px;font-size:20px;}.nav-label{font-size:10px;}}
+</style>
 </head>
-
-<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen font-sans text-slate-800">
-
-    <!-- App Container -->
-    <div id="app" class="max-w-4xl mx-auto p-4 min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="flex justify-between items-center py-6 mb-6">
-            <div class="flex items-center gap-3">
-                <div class="text-4xl">📚</div>
-                <h1
-                    class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
-                    קוראים בכיף
-                </h1>
-            </div>
-        </header>
-
-        <!-- Main Content Area -->
-        <main id="main-content" class="flex-grow relative">
-        </main>
-
-        <!-- Footer -->
-        <footer class="text-center py-6 text-slate-400 text-sm">
-            <p>© 2025 קוראים בכיף</p>
-        </footer>
+<body class="font-heebo overflow-x-hidden">
+<div class="sun"></div>
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+<div class="grass-hills"></div>
+<div id="confetti-container"></div>
+<div class="top-bar" id="topbar">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span class="top-bar-title">📚 קוראים בכיף!</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="top-bar-stats">
+      <span class="stat-pill" id="hdr-streak">🔥 0</span>
+      <span class="stat-pill" id="hdr-stars">⭐ 0</span>
+      <span class="stat-pill" id="hdr-coins">🪙 0</span>
     </div>
+    <div class="top-bar-avatar" id="avatarBtn" onclick="toggleParentPanel()">🥚</div>
+  </div>
+</div>
+<div class="parent-overlay" id="parentOverlay" onclick="toggleParentPanel()">
+  <div class="parent-panel" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 class="font-title" style="font-size:18px;">👨‍👩‍👧 אזור הורים</h3>
+      <button onclick="toggleParentPanel()" style="width:32px;height:32px;border-radius:50%;background:#f0f0f0;border:none;font-size:16px;cursor:pointer;">✕</button>
+    </div>
+    <div id="parentContent"></div>
+  </div>
+</div>
+<div id="app" class="min-h-screen" style="padding-top:60px;padding-bottom:90px;position:relative;z-index:2;"></div>
+<nav class="bottom-nav" id="bottomNav"></nav>
+<script>
+const STORIES = [
+{id:1,title:'הַחָתוּל הַקָּטָן',text:'הַחָתוּל שֶׁלִּי קָטָן וְלָבָן. הוּא אוֹהֵב לִשְׁתּוֹת חָלָב כָּל בֹּקֶר. אַחֲרֵי שֶׁהוּא שׁוֹתֶה, הוּא מְשַׂחֵק עִם כַּדּוּר קָטָן. בָּעֶרֶב הוּא מִתְכַּרְבֵּל עַל הַמִּטָּה שֶׁלִּי וְיָשֵׁן. אֲנִי אוֹהֶבֶת אֶת הַחָתוּל שֶׁלִּי מְאוֹד.',d:1,cat:'animals',em:'🐱',
+q:[{q:'מָה הַחָתוּל אוֹהֵב לִשְׁתּוֹת?',o:['מַיִם','חָלָב','מִיץ'],a:1},{q:'אֵיפֹה הַחָתוּל יָשֵׁן?',o:['עַל הַכִּסֵּא','בַּגַּן','עַל הַמִּטָּה'],a:2}],
+v:[{w:'חָלָב',def:'מַשְׁקֶה לָבָן שֶׁבָּא מִפָּרָה',syl:'חָ-לָב'}]},
 
-    <!-- Confetti Container -->
-    <div id="confetti-container" class="fixed inset-0 pointer-events-none z-40 hidden"></div>
+{id:2,title:'הַכֶּלֶב שֶׁלִּי',text:'יֵשׁ לִי כֶּלֶב גָּדוֹל וְחוּם. הַשֵּׁם שֶׁלּוֹ בּוֹבִּי. הוּא אוֹהֵב לָרוּץ בַּפַּארְק וּלְשַׂחֵק עִם יְלָדִים. כְּשֶׁהוּא שָׂמֵחַ הוּא מְנַעְנֵעַ אֶת הַזָּנָב. בּוֹבִּי גַּם אוֹהֵב לֶאֱכוֹל עֲצָמוֹת. הוּא הַחָבֵר הֲכִי טוֹב שֶׁלִּי.',d:1,cat:'animals',em:'🐕',
+q:[{q:'מָה הַשֵּׁם שֶׁל הַכֶּלֶב?',o:['דָּנִי','בּוֹבִּי','רֶקְס'],a:1},{q:'אֵיפֹה הַכֶּלֶב אוֹהֵב לָרוּץ?',o:['בַּבַּיִת','בַּפַּארְק','בַּיַּם'],a:1}],
+v:[{w:'פַּארְק',def:'מָקוֹם יָרֹק לְמִשְׂחָק',syl:'פַּארְק'}]},
 
-    <script>
-        const ALL_STORIES = [
-            {
-                id: "story_1",
-                title: "הַכֶּלֶב שֶׁל דָּנִי",
-                content: "דָּנִי יֵשׁ לוֹ כֶּלֶב קָטָן. הַכֶּלֶב שֶׁל דָּנִי לָבָן וְחָמוּד. דָּנִי אוֹהֵב לְשַׂחֵק עִם הַכֶּלֶב בַּגִּנָּה. הֵם רָצִים וְקוֹפְצִים בַּדֶּשֶׁא. הַכֶּלֶב נוֹבֵחַ: הַב-הַב! דָּנִי צוֹחֵק וְשָׂמֵחַ.",
-                difficulty: 1,
-                wordCount: 25,
-                emoji: "🐶"
-            },
-            {
-                id: "story_2",
-                title: "הֶחָתוּל הֶעָצֵל",
-                content: "הֶחָתוּל שֶׁל מִיכַל אוֹהֵב לִישׁוֹן. הוּא יָשֵׁן עַל הַסַּפָּה כָּל הַיּוֹם. מִיכַל קוֹרֵאת לוֹ: בּוֹא לֶאֱכֹל! אֲבָל הֶחָתוּל רַק פּוֹקֵחַ עַיִן אַחַת וְחוֹזֵר לִישׁוֹן. הוּא חָתוּל מְאוֹד עָצֵל.",
-                difficulty: 1,
-                wordCount: 30,
-                emoji: "🐱"
-            },
-            {
-                id: "story_3",
-                title: "יוֹם בְּגַן הַחַיּוֹת",
-                content: "הַיּוֹם הָלַכְנוּ לְגַן הַחַיּוֹת. רָאִינוּ אֲרָיֵה גָּדוֹל וְחָזָק. רָאִינוּ גַּם פִּיל עִם חֵדֶק אָרֹךְ. הַקּוֹפִים קָפְצוּ עַל הָעֵצִים וְאָכְלוּ בָּנָנוֹת. זֶה הָיָה יוֹם כֵּיף מְאוֹד.",
-                difficulty: 2,
-                wordCount: 35,
-                emoji: "🦁"
-            },
-            {
-                id: "story_4",
-                title: "הַכַּדּוּר הָאָדֹם",
-                content: "לְרוֹנִי יֵשׁ כַּדּוּר אָדֹם וְגָדוֹל. רוֹנִי זוֹרֵק אֶת הַכַּדּוּר לְמַעְלָה. הַכַּדּוּר עוֹלֶה לַשָּׁמַיִם וְנוֹפֵל לְמַטָּה. רוֹנִי תּוֹפֵס אֶת הַכַּדּוּר בַּיָּדַיִם. הוּא מְשַׂחֵק בַּכַּדּוּר עִם הַחֲבֵרִים שֶׁלּוֹ.",
-                difficulty: 1,
-                wordCount: 32,
-                emoji: "⚽"
-            },
-            {
-                id: "story_5",
-                title: "הַשֶּׁמֶשׁ וְהַיָּרֵחַ",
-                content: "הַשֶּׁמֶשׁ זוֹרַחַת בַּיּוֹם וְנוֹתֶנֶת לָנוּ אוֹר וְחֹם. הַיָּרֵחַ מֵאִיר בַּלַּיְלָה כְּשֶׁחָשׁוּךְ. הַכּוֹכָבִים נוֹצְצִים לְיַד הַיָּרֵחַ. הַשֶּׁמֶשׁ וְהַיָּרֵחַ הֵם חֲבֵרִים טוֹבִים שֶׁל הַשָּׁמַיִם.",
-                difficulty: 2,
-                wordCount: 33,
-                emoji: "☀️"
-            },
-            {
-                id: "story_6",
-                title: "הַפַּרְפַּר הַצִּבְעוֹנִי",
-                content: "בַּגִּנָּה שֶׁל סַבְתָּא יֵשׁ פַּרְפַּר יָפֶה. לַפַּרְפַּר יֵשׁ כְּנָפַיִם בְּצֶבַע כָּחֹל וְצָהֹב. הוּא עָף מִפֶּרַח לְפֶרַח וְשׁוֹתֶה צוּף. אֲנִי אוֹהֵב לְהִסְתַּכֵּל עַל הַפַּרְפַּר הַמְּיֻחָד.",
-                difficulty: 2,
-                wordCount: 34,
-                emoji: "🦋"
-            },
-            {
-                id: "story_7",
-                title: "הַגְּלִידָה הַטְּעִימָה",
-                content: "בַּקַּיִץ חַם מְאוֹד. אִמָּא קָנְתָה לִי גְּלִידָה קָרָה וּמְתוּקָה. הַגְּלִידָה בְּטַעַם שׁוֹקוֹלָד וְתּוּת. אֲנִי מְלַקֵּק אֶת הַגְּלִידָה מַהֵר לִפְנֵי שֶׁהִיא תִּמַּס. יָאמִי, זֶה טָעִים!",
-                difficulty: 1,
-                wordCount: 31,
-                emoji: "🍦"
-            },
-            {
-                id: "story_8",
-                title: "הַבֻּבָּה שֶׁל נֹעָה",
-                content: "לְנֹעָה יֵשׁ בֻּבָּה חֲדָשָׁה. לַבֻּבָּה קוֹרְאִים מָאיָה. יֵשׁ לָהּ שְׂמָלָה וְרֻדָּה וְשֵׂעָר זָהוּב. נֹעָה מְסָרֶקֶת אֶת הַשֵּׂעָר שֶׁל מָאיָה וְלוֹקַחַת אוֹתָהּ לַגַּן. הֵן חֲבֵרוֹת טוֹבוֹת.",
-                difficulty: 1,
-                wordCount: 32,
-                emoji: "🎎"
-            },
-            {
-                id: "story_9",
-                title: "הָאוֹטוֹ הַמָּהִיר",
-                content: "אַבָּא נוֹהֵג בָּאוֹטוֹ הָאָדֹם. הָאוֹטוֹ נוֹסֵעַ מַהֵר עַל הַכְּבִישׁ. אֲנַחְנוּ נוֹסְעִים לְבַקֵּר אֶת סַבָּא וְסַבְתָּא בַּצָּפוֹן. בַּדֶּרֶךְ אֲנַחְנוּ רוֹאִים הָרִים וְעֵצִים. הַנְּסִיעָה כֵּיפִית מְאוֹד.",
-                difficulty: 2,
-                wordCount: 36,
-                emoji: "🚗"
-            },
-            {
-                id: "story_10",
-                title: "הַדָּג בָּאַקְוַרְיוּם",
-                content: "יֵשׁ לִי דָּג קָטָן בְּשֵׁם בְּלוּ. הוּא שׂוֹחֶה בָּאַקְוַרְיוּם כָּל הַיּוֹם. בְּלוּ אוֹהֵב לֶאֱכֹל אֹכֶל שֶׁל דָּגִים. הוּא עוֹשֶׂה בּוּעוֹת בַּמַּיִם. אֲנִי שָׂמֵחַ שֶׁיֵּשׁ לִי דָּג כָּזֶה.",
-                difficulty: 1,
-                wordCount: 33,
-                emoji: "🐠"
-            },
-            {
-                id: "story_11",
-                title: "הַגֶּשֶׁם הָרִאשׁוֹן",
-                content: "בַּחוּץ יוֹרֵד גֶּשֶׁם חָזָק. הַשָּׁמַיִם אֲפֹרִים וְיֵשׁ רוּחַ קָרָה. אֲנִי לוֹבֵשׁ מְעִיל וּמַגָּפַיִם וְיוֹצֵא לַחְצֵר. אֲנִי קוֹפֵץ בַּשְּׁלוּלִיּוֹת וְנִרְטָב. אֵיזֶה כֵּיף בַּחֹרֶף!",
-                difficulty: 2,
-                wordCount: 30,
-                emoji: "🌧️"
-            },
-            {
-                id: "story_12",
-                title: "יוֹם הֻלֶּדֶת לְיוֹנָתָן",
-                content: "הַיּוֹם יוֹם הֻלֶּדֶת לְיוֹנָתָן. הוּא בֶּן חָמֵשׁ. אִמָּא אָפְתָה עוּגַת שׁוֹקוֹלָד גְּדוֹלָה עִם נֵרוֹת. כָּל הַחֲבֵרִים בָּאוּ לַמְּסִבָּה. הֵם שָׁרִים שִׁירִים וְאוֹכְלִים מַמְתַּקִּים.",
-                difficulty: 2,
-                wordCount: 32,
-                emoji: "🎂"
-            },
-            {
-                id: "story_13",
-                title: "הַצָּב הָאִטִּי",
-                content: "הַצָּב הוֹלֵךְ לְאַט לְאַט. יֵשׁ לוֹ בַּיִת עַל הַגַּב. כְּשֶׁהוּא מְפַחֵד, הוּא נִכְנָס לְתוֹךְ הַבַּיִת שֶׁלּוֹ. הַצָּב אוֹהֵב לֶאֱכֹל חַסָּה יְרֻקָּה. הוּא חַיָּה שְׁקֵטָה וְנֶחְמָדָה.",
-                difficulty: 2,
-                wordCount: 33,
-                emoji: "🐢"
-            },
-            {
-                id: "story_14",
-                title: "הַסֵּפֶר הַמְּעַנְיֵן",
-                content: "אֲנִי אוֹהֵב לִקְרֹא סְפָרִים לִפְנֵי הַשֵּׁנָה. הַסֵּפֶר שֶׁלִּי מְסַפֵּר עַל אַבִּירִים וּדְרָקוֹנִים. הַתְּמוּנוֹת בַּסֵּפֶר יָפוֹת מְאוֹד. אִמָּא מַקְרִיאָה לִי אֶת הַסִּפּוּר עַד שֶׁאֲנִי נִרְדָּם.",
-                difficulty: 3,
-                wordCount: 35,
-                emoji: "📚"
-            },
-            {
-                id: "story_15",
-                title: "הָרוֹפְאָה הַנֶּחְמָדָה",
-                content: "הָיִיתִי חוֹלֶה וְהָלַכְתִּי לָרוֹפְאָה. הִיא בָּדְקָה אוֹתִי עִם סְטֶטֶוֹסְקוֹפּ. הָרוֹפְאָה אָמְרָה שֶׁאֲנִי צָרִיךְ לָנוּחַ וְלִשְׁתּוֹת תֵּה. הִיא נָתְנָה לִי מַדְבֵּקָה שֶׁל גִּבּוֹר עָל. עַכְשָׁו אֲנִי מַרְגִּישׁ יוֹתֵר טוֹב.",
-                difficulty: 3,
-                wordCount: 38,
-                emoji: "👩‍⚕️"
-            },
-            {
-                id: "story_16",
-                title: "הַטִּיּוּל בַּיַּעַר",
-                content: "בְּשַׁבָּת נָסַעְנוּ לְטַיֵּל בַּיַּעַר. רָאִינוּ הַרְבֵּה עֵצִים גְּבוֹהִים וּפְרָחִים. מָצָאנוּ פִּטְרִיּוֹת מִתַּחַת לָעֵץ. שָׁמַעְנוּ צִפּוֹרִים מְצַיְּצוֹת. הָאֲוִיר בַּיַּעַר הָיָה נָקִי וְנָעִים.",
-                difficulty: 3,
-                wordCount: 34,
-                emoji: "🌲"
-            },
-            {
-                id: "story_17",
-                title: "הַשָּׁעוֹן הַמְּצַלְצֵל",
-                content: "לְאַבָּא יֵשׁ שָׁעוֹן מְעוֹרֵר. בַּבֹּקֶר הַשָּׁעוֹן מְצַלְצֵל: טְרִינְג טְרִינְג! אֲנַחְנוּ קָמִים מֵהַמִּטָּה, מְצַחְצְחִים שִׁנַּיִם וּמִתְלַבְּשִׁים. הַשָּׁעוֹן עוֹזֵר לָנוּ לֹא לְאַחֵר לַגַּן וְלָעֲבוֹדָה.",
-                difficulty: 2,
-                wordCount: 33,
-                emoji: "⏰"
-            },
-            {
-                id: "story_18",
-                title: "הַכַּדּוּרְסַל",
-                content: "אֲחִי הַגָּדוֹל מְשַׂחֵק כַּדּוּרְסַל. הוּא גָּבוֹהַ וְחָזָק. הוּא זוֹרֵק אֶת הַכַּדּוּר לַסַּל וְקוֹלֵעַ. כֻּלָּם מוֹחֲאִים כַּפַּיִם. אֲנִי רוֹצֶה לִהְיוֹת שַׂחְקַן כַּדּוּרְסַל כְּשֶׁאֶהְיֶה גָּדוֹל.",
-                difficulty: 3,
-                wordCount: 35,
-                emoji: "🏀"
-            },
-            {
-                id: "story_19",
-                title: "הָרַכֶּבֶת הָאֲרֻכָּה",
-                content: "הָרַכֶּבֶת נוֹסַעַת עַל הַפַּסִּים. יֵשׁ לָהּ הַרְבֵּה קְרוֹנוֹת. הָרַכֶּבֶת עוֹשָׂה רַעַשׁ: טוּ-טוּ! הַנּוֹסְעִים יוֹשְׁבִים וּמַבִּיטִים בַּחַלּוֹן. הָרַכֶּבֶת מַגִּיעָה לַתַּחֲנָה וְעוֹצֶרֶת.",
-                difficulty: 2,
-                wordCount: 32,
-                emoji: "🚂"
-            },
-            {
-                id: "story_20",
-                title: "הַתַּפּוּחַ הָאָדֹם",
-                content: "בַּמִּטְבָּח יֵשׁ סַלְסִלָּה עִם תַּפּוּחִים. לָקַחְתִּי תַּפּוּחַ אָדֹם וְעָגֹל. שָׁטַפְתִּי אוֹתוֹ בַּמַּיִם. נָתַתִּי בִּיס גָּדוֹל. הַתַּפּוּחַ הָיָה מָתוֹק וְקָרִיסְפִּי. אֲנִי אוֹהֵב פֵּרוֹת בְּרִיאִים.",
-                difficulty: 1,
-                wordCount: 33,
-                emoji: "🍎"
+{id:3,title:'פְּרָחִים בַּגַּן',text:'בַּגַּן שֶׁלָּנוּ יֵשׁ פְּרָחִים יָפִים. יֵשׁ פְּרָחִים אֲדֻמִּים, צְהֻבִּים וּסְגוּלִים. אֲנִי אוֹהֶבֶת לָרִיחַ אוֹתָם כָּל בֹּקֶר. פַּרְפַּרִים בָּאִים לְבַקֵּר אֶת הַפְּרָחִים. אֲנִי מַשְׁקָה אוֹתָם בְּמַיִם כְּדֵי שֶׁיִּגְדְּלוּ יָפֶה.',d:1,cat:'nature',em:'🌸',
+q:[{q:'אֵיזֶה צְבָעִים יֵשׁ לַפְּרָחִים?',o:['כְּחֻלִּים','אֲדֻמִּים וּצְהֻבִּים','שְׁחוֹרִים'],a:1},{q:'מָה הַיַּלְדָּה אוֹהֶבֶת לַעֲשׂוֹת?',o:['לָרִיחַ אוֹתָם','לִקְטוֹף אוֹתָם','לְצַיֵּר אוֹתָם'],a:0}],
+v:[{w:'פְּרָחִים',def:'צְמָחִים יָפִים וּצִבְעוֹנִיִּים',syl:'פְּרָ-חִים'}]},
+
+{id:4,title:'הַדָּג הַזָּהָב',text:'יֵשׁ לִי דָּג זָהָב קָטָן וּמַבְרִיק. הוּא שָׂט בָּאַקְוַרְיוּם כָּל הַיּוֹם. לִפְעָמִים הוּא שָׂט מָהִיר וְלִפְעָמִים לְאַט. אֲנִי נוֹתֶנֶת לוֹ אוֹכֶל כָּל בֹּקֶר. הוּא יָפֶה מְאוֹד וַאֲנִי אוֹהֶבֶת לְהִסְתַּכֵּל עָלָיו.',d:1,cat:'animals',em:'🐠',
+q:[{q:'אֵיזֶה צֶבַע הַדָּג?',o:['אָדוֹם','כָּחוֹל','זָהָב'],a:2},{q:'אֵיפֹה הַדָּג שָׂט?',o:['בַּיָּם','בָּאַקְוַרְיוּם','בַּבְּרֵכָה'],a:1}],
+v:[{w:'אַקְוַרְיוּם',def:'כְּלִי זְכוּכִית עִם מַיִם לְדָגִים',syl:'אַקְ-וַרְ-יוּם'}]},
+
+{id:5,title:'גֶּשֶׁם בַּחוּץ',text:'הַיּוֹם יוֹרֵד גֶּשֶׁם חָזָק בַּחוּץ. אֲנִי לוֹבֶשֶׁת מְעִיל חָם וּמַגָּפַיִם. יֵשׁ לִי מִטְרִיָּה צִבְעוֹנִית עִם כּוֹכָבִים. אֲנִי קוֹפֶצֶת בַּשְּׁלוּלִיּוֹת וְזֶה כֵּיפִי מְאוֹד. אַחֲרֵי הַגֶּשֶׁם אוּלַי תִּהְיֶה קֶשֶׁת בַּשָּׁמַיִם!',d:1,cat:'nature',em:'🌧️',
+q:[{q:'מָה יוֹרֵד בַּחוּץ?',o:['שֶׁלֶג','גֶּשֶׁם','בָּרָד'],a:1},{q:'מָה הַיַּלְדָּה לוֹבֶשֶׁת?',o:['שִׂמְלָה','מְעִיל','כּוֹבָע'],a:1}],
+v:[{w:'מִטְרִיָּה',def:'דָּבָר שֶׁמַּחְזִיקִים מֵעַל הָרֹאשׁ בַּגֶּשֶׁם',syl:'מִטְ-רִ-יָּה'}]},
+
+{id:6,title:'הַתַּפּוּחַ הָאָדוֹם',text:'אֲנִי אוֹכֶלֶת תַּפּוּחַ אָדוֹם וְגָדוֹל. הוּא מָתוֹק וְטָעִים מְאוֹד. תַּפּוּחִים זֶה בָּרִיא וְטוֹב לַגּוּף. אִמָּא שַׂמָה תַּפּוּחִים בַּתִּיק לְבֵית הַסֵּפֶר. אֲנִי אוֹכֶלֶת תַּפּוּחַ בְּכָל הַפְסָקָה. זֶה הַפְּרִי הָאָהוּב עָלַי!',d:1,cat:'nature',em:'🍎',
+q:[{q:'אֵיזֶה צֶבַע הַתַּפּוּחַ?',o:['יָרוֹק','אָדוֹם','צָהוֹב'],a:1},{q:'אֵיךְ הַתַּפּוּחַ?',o:['חָמוּץ','מַר','מָתוֹק'],a:2}],
+v:[{w:'תַּפּוּחַ',def:'פְּרִי עָגוֹל וּמָתוֹק',syl:'תַּפּ-וּחַ'}]},
+
+{id:7,title:'אִמָּא שֶׁלִּי',text:'אִמָּא שֶׁלִּי הֲכִי טוֹבָה בָּעוֹלָם. הִיא מְבַשֶּׁלֶת אוֹכֶל טָעִים כָּל יוֹם. הִיא גַּם קוֹרֵאת לִי סִפּוּרִים לִפְנֵי הַשֵּׁנָה. כְּשֶׁאֲנִי עֲצוּבָה הִיא מְחַבֶּקֶת אוֹתִי חָזָק. אֲנִי אוֹהֶבֶת אוֹתָהּ מְאוֹד מְאוֹד!',d:1,cat:'family',em:'👩',
+q:[{q:'מָה אִמָּא עוֹשָׂה?',o:['מְצַיֶּרֶת','מְבַשֶּׁלֶת','שָׁרָה'],a:1},{q:'אֵיךְ הָאוֹכֶל שֶׁלָּהּ?',o:['טָעִים','מָלוּחַ','קַר'],a:0}],
+v:[{w:'מְבַשֶּׁלֶת',def:'מְכִינָה אוֹכֶל בַּמִּטְבָּח',syl:'מְ-בַשּׁ-ֶלֶת'}]},
+
+{id:8,title:'כּוֹכָבִים בַּשָּׁמַיִם',text:'בַּלַּיְלָה יֵשׁ כּוֹכָבִים רַבִּים בַּשָּׁמַיִם. הֵם נוֹצְצִים כְּמוֹ יַהֲלוֹמִים קְטַנִּים. אֲנִי אוֹהֶבֶת לְהִסְתַּכֵּל עֲלֵיהֶם מֵהַחַלּוֹן. לִפְעָמִים אֲנִי מוֹנָה כּוֹכָבִים עַד שֶׁאֲנִי נִרְדֶּמֶת. הַכּוֹכָבִים שׁוֹמְרִים עָלַי כָּל הַלַּיְלָה.',d:1,cat:'nature',em:'⭐',
+q:[{q:'מָתַי רוֹאִים כּוֹכָבִים?',o:['בַּבֹּקֶר','בַּצָּהֳרַיִם','בַּלַּיְלָה'],a:2},{q:'מָה הַכּוֹכָבִים עוֹשִׂים?',o:['נוֹפְלִים','נוֹצְצִים','שָׁרִים'],a:1}],
+v:[{w:'נוֹצְצִים',def:'מְאִירִים וּמַבְרִיקִים',syl:'נוֹ-צְ-צִים'}]},
+
+{id:9,title:'הַיּוֹם הָרִאשׁוֹן בַּגַּן',text:'הַיּוֹם הַיּוֹם הָרִאשׁוֹן שֶׁלִּי בְּבֵית הַסֵּפֶר. אֲנִי קְצָת מְפַחֶדֶת כִּי הַכֹּל חָדָשׁ. אֲבָל הַמּוֹרָה מְאוֹד נֶחְמָדָה וְחִיְּכָה אֵלַי. בַּהַפְסָקָה שִׂחַקְתִּי עִם יַלְדָּה בְּשֵׁם מָיָה. עָשִׂיתִי חֲבֵרָה חֲדָשָׁה וְעַכְשָׁו אֲנִי שְׂמֵחָה!',d:2,cat:'school',em:'🏫',
+q:[{q:'אֵיךְ הַיַּלְדָּה מַרְגִּישָׁה?',o:['שְׂמֵחָה','מְפַחֶדֶת קְצָת','עָיְפָה'],a:1},{q:'אֵיךְ הַמּוֹרָה?',o:['עָצוּבָה','כּוֹעֶסֶת','נֶחְמָדָה'],a:2}],
+v:[{w:'מְפַחֶדֶת',def:'מַרְגִּישָׁה פַּחַד',syl:'מְ-פַ-חֶ-דֶת'}]},
+
+{id:10,title:'הַיַּלְדָּה וְהַפַּרְפַּר',text:'יַלְדָּה רָאֲתָה פַּרְפַּר יָפֶה בַּגַּן. הַפַּרְפַּר הָיָה צִבְעוֹנִי עִם כְּנָפַיִם כְּחוּלוֹת וּצְהֻבּוֹת. הוּא עָף מִפֶּרַח לְפֶרַח בְּעַדִּינוּת. הַיַּלְדָּה רָצְתָה אַחֲרָיו בִּשְׂמָחָה. לְבַסּוֹף הַפַּרְפַּר נָח עַל יָדָהּ וְהִיא חִיְּכָה.',d:2,cat:'nature',em:'🦋',
+q:[{q:'מָה הַפַּרְפַּר עָשָׂה?',o:['יָשַׁב עַל הָאָרֶץ','עָף מִפֶּרַח לְפֶרַח','אָכַל עוּגָה'],a:1},{q:'אֵיךְ הַפַּרְפַּר נִרְאֶה?',o:['צִבְעוֹנִי וְיָפֶה','קָטָן וְשָׁחוֹר','גָּדוֹל וְלָבָן'],a:0}],
+v:[{w:'פַּרְפַּר',def:'חַיָּה קְטַנָּה עִם כְּנָפַיִם צִבְעוֹנִיּוֹת',syl:'פַּרְ-פַּר'}]},
+
+{id:11,title:'הַמְּסִבָּה',text:'הַיּוֹם יֵשׁ מְסִבָּה בַּבַּיִת שֶׁלָּנוּ! יֵשׁ עוּגָה גְּדוֹלָה עִם נֵרוֹת צִבְעוֹנִיִּים. כֹּל הַחֲבֵרִים בָּאוּ עִם מַתָּנוֹת. שָׁרַנוּ וְרָקַדְנוּ יַחַד כָּל הָעֶרֶב. אָכַלְנוּ חֲטִיפִים וְשָׁתִינוּ מִיץ. הָיְתָה הַמְּסִבָּה הֲכִי כֵּיפִית!',d:2,cat:'family',em:'🎉',
+q:[{q:'מָה יֵשׁ בַּמְּסִבָּה?',o:['סְפָרִים','עוּגָה גְּדוֹלָה','כֶּלֶב'],a:1},{q:'מָה עָשׂוּ בַּמְּסִבָּה?',o:['יָשְׁנוּ','לָמְדוּ','שָׁרוּ וְרָקְדוּ'],a:2}],
+v:[{w:'מְסִבָּה',def:'אֵרוּעַ שָׂמֵחַ עִם חֲבֵרִים',syl:'מְ-סִ-בָּה'}]},
+
+{id:12,title:'בַּחוֹף הַיָּם',text:'הָלַכְנוּ לַחוֹף הַיָּם בְּיוֹם חַם. הַמַּיִם הָיוּ כְּחֻלִּים וְיָפִים מְאוֹד. בָּנִיתִי אַרְמוֹן גָּדוֹל מֵחוֹל עִם צְדָפִים. אָבָא שִׂחֵק אִתִּי בַּגַּלִּים וְצָחַקְנוּ. אָכַלְנוּ אֲבַטִּיחַ קַר וְהָיָה נִפְלָא.',d:2,cat:'adventure',em:'🏖️',
+q:[{q:'מָה בָּנְתָה הַיַּלְדָּה?',o:['בַּיִת','אַרְמוֹן מֵחוֹל','סִירָה'],a:1},{q:'מִי שִׂחֵק אִתָּהּ בַּגַּלִּים?',o:['אִמָּא','הֶחָבֵרָה','אָבָא'],a:2}],
+v:[{w:'אַרְמוֹן',def:'בַּיִת גָּדוֹל וְיָפֶה שֶׁל מֶלֶךְ',syl:'אַרְ-מוֹן'}]},
+
+{id:13,title:'הָאַרְנָב הַלָּבָן',text:'בַּחֲצַר שֶׁלָּנוּ יֵשׁ אַרְנָב לָבָן וְרַךְ. הוּא אוֹהֵב לֶאֱכוֹל גֶּזֶר כָּתוֹם. הָאוֹזְנַיִם שֶׁלּוֹ אֲרוּכּוֹת וּמַצְחִיקוֹת. הוּא קוֹפֵץ בַּחֲצַר כָּל הַיּוֹם. כְּשֶׁאֲנִי בָּא הוּא מִתְקָרֵב וְנוֹתֵן לִי לְלַטֵּף אוֹתוֹ.',d:2,cat:'animals',em:'🐰',
+q:[{q:'מָה הָאַרְנָב אוֹהֵב לֶאֱכוֹל?',o:['תַּפּוּחַ','גֶּזֶר','לֶחֶם'],a:1},{q:'מָה מְיֻחָד בָּאַרְנָב?',o:['אוֹזְנַיִם אֲרוּכּוֹת','זָנָב אָרוּךְ','עֵינַיִם גְּדוֹלוֹת'],a:0}],
+v:[{w:'אַרְנָב',def:'חַיָּה קְטַנָּה עִם אוֹזְנַיִם אֲרוּכּוֹת',syl:'אַרְ-נָב'}]},
+
+{id:14,title:'הַסֵּפֶר הֶחָדָשׁ',text:'אִמָּא קָנְתָה לִי סֵפֶר חָדָשׁ מֵהַחֲנוּת. בַּסֵּפֶר יֵשׁ סִפּוּר עַל נְסִיכָה אַמִּיצָה. הַנְּסִיכָה יָצְאָה לְהַרְפַּתְקָה עִם חֲתוּל קָסוּם. אֲנִי קוֹרֵאת דַּף אֶחָד כָּל יוֹם. זֶה הַסֵּפֶר הֲכִי טוֹב שֶׁקָּרָאתִי!',d:2,cat:'school',em:'📖',
+q:[{q:'מִי קָנְתָה אֶת הַסֵּפֶר?',o:['אָבָא','אִמָּא','סָבְתָא'],a:1},{q:'עַל מָה הַסִּפּוּר?',o:['דֻּב','נְסִיכָה','כֶּלֶב'],a:1}],
+v:[{w:'נְסִיכָה',def:'בַּת שֶׁל מֶלֶךְ וּמַלְכָּה',syl:'נְ-סִי-כָה'}]},
+
+{id:15,title:'פִּיקְנִיק בַּפַּארְק',text:'הַמִּשְׁפָּחָה שֶׁלָּנוּ הָלְכָה לַפַּארְק בְּיוֹם שַׁבָּת. הֵבֵאנוּ כָּרִיכִים טְעִימִים וּפֵרוֹת טְרִיִּים. יָשַׁבְנוּ עַל הַדֶּשֶׁא הַיָּרוֹק תַּחַת עֵץ גָּדוֹל. אַחֲרֵי הָאֲכִילָה שִׂחַקְנוּ בְּכַדּוּר. הָיָה יוֹם כֵּיפִי מְאוֹד!',d:2,cat:'family',em:'🧺',
+q:[{q:'מָה הֵבִיאוּ לַפִּיקְנִיק?',o:['עוּגוֹת','כָּרִיכִים וּפֵרוֹת','שׁוֹקוֹלָד'],a:1},{q:'אֵיפֹה יָשְׁבוּ?',o:['עַל כִּסֵּא','עַל הַדֶּשֶׁא','עַל אֶבֶן'],a:1}],
+v:[{w:'פִּיקְנִיק',def:'אֲרוּחָה בַּחוּץ בַּטֶּבַע',syl:'פִּיקְ-נִיק'}]},
+
+{id:16,title:'הַשֶּׁלֶג הָרִאשׁוֹן',text:'בַּבֹּקֶר יָרַד שֶׁלֶג רַב! הַכֹּל לָבָן וּמַבְרִיק בַּחוּץ. יָצָאתִי וּבָנִיתִי בֻּבַּת שֶׁלֶג גְּדוֹלָה. שַׂמְתִּי לָהּ כּוֹבַע אָדוֹם וְגֶזֶר בַּמָּקוֹם שֶׁל הָאַף. עָשִׂיתִי לָהּ גַּם עֵינַיִם מֵאֲבָנִים. הִיא יָצְאָה יָפָה!',d:2,cat:'nature',em:'⛄',
+q:[{q:'מָה יָרַד בַּבֹּקֶר?',o:['גֶּשֶׁם','שֶׁלֶג','בָּרָד'],a:1},{q:'מָה שַׂמָה לַבֻּבָּה בַּמָּקוֹם שֶׁל הָאַף?',o:['כַּדּוּר','גֶּזֶר','אֶבֶן'],a:1}],
+v:[{w:'שֶׁלֶג',def:'גֶּשֶׁם קָפוּא לָבָן שֶׁיּוֹרֵד בַּחוֹרֶף',syl:'שֶׁ-לֶג'}]},
+
+{id:17,title:'הַהַרְפַּתְקָה בַּיַּעַר',text:'יוֹם אֶחָד הָלַכְנוּ לַיַּעַר. רָאִינוּ עֵצִים גְּבוֹהִים מְאוֹד. שָׁמַעְנוּ צִפּוֹרִים שָׁרוֹת שִׁירִים יָפִים. מָצָאנוּ נָחָל קָטָן עִם מַיִם צְלוּלִים. הָיָה טִיּוּל נִפְלָא!',d:3,cat:'adventure',em:'🌲',
+q:[{q:'מָה שָׁמְעוּ בַּיַּעַר?',o:['כְּלָבִים','צִפּוֹרִים שָׁרוֹת','רוּחַ'],a:1},{q:'מָה מָצְאוּ בַּיַּעַר?',o:['אוֹצָר','נָחָל קָטָן','בַּיִת'],a:1}],
+v:[{w:'נָחָל',def:'מַיִם שֶׁזּוֹרְמִים בַּטֶּבַע',syl:'נָ-חָל'},{w:'צְלוּלִים',def:'נְקִיִּים וּשְׁקוּפִים',syl:'צְ-לוּ-לִים'}]},
+
+{id:18,title:'הַכֶּלֶב שֶׁמָּצָא בַּיִת',text:'כֶּלֶב קָטָן הָלַךְ בָּרְחוֹב לְבַדּוֹ. הוּא הָיָה רָעֵב וְעָצוּב. יַלְדָּה טוֹבָה רָאֲתָה אוֹתוֹ וְנִגְּשָׁה אֵלָיו. הִיא נָתְנָה לוֹ אוֹכֶל וּמַיִם. עַכְשָׁו הַכֶּלֶב גָּר אִתָּהּ וְהוּא שָׂמֵחַ.',d:3,cat:'animals',em:'🐶',
+q:[{q:'אֵיךְ הַכֶּלֶב הִרְגִּישׁ בַּהַתְחָלָה?',o:['שָׂמֵחַ','רָעֵב וְעָצוּב','עָיֵף'],a:1},{q:'מָה הַיַּלְדָּה עָשְׂתָה?',o:['בָּרְחָה','נָתְנָה לוֹ אוֹכֶל','צָעֲקָה'],a:1}],
+v:[{w:'רָעֵב',def:'מַרְגִּישׁ שֶׁצָּרִיךְ לֶאֱכוֹל',syl:'רָ-עֵב'}]},
+
+{id:19,title:'יוֹם הֻלֶּדֶת מְיֻחָד',text:'הַיּוֹם יוֹם הֻלֶּדֶת שֶׁלִּי! קִבַּלְתִּי מַתָּנוֹת מֵהַמִּשְׁפָּחָה. אִמָּא אָפְתָה עוּגָה בִּצְבַע וָרֹד. הַחֲבֵרוֹת שֶׁלִּי בָּאוּ לַמְּסִבָּה. זֶה הָיָה הַיּוֹם הֲכִי שָׂמֵחַ!',d:3,cat:'family',em:'🎂',
+q:[{q:'מָה אִמָּא עָשְׂתָה?',o:['קָנְתָה מַתָּנָה','אָפְתָה עוּגָה','שָׁרָה שִׁיר'],a:1},{q:'מִי בָּא לַמְּסִבָּה?',o:['הַמּוֹרָה','הַחֲבֵרוֹת','הַשְּׁכֵנִים'],a:1}],
+v:[{w:'מַתָּנוֹת',def:'דְּבָרִים שֶׁנּוֹתְנִים בְּשִׂמְחָה',syl:'מַ-תָּ-נוֹת'}]},
+
+{id:20,title:'הַגִּנָּה הַקְּסוּמָה',text:'מֵאֲחוֹרֵי הַבַּיִת יֵשׁ גִּנָּה מְיֻחֶדֶת. בַּגִּנָּה גְּדֵלִים פְּרָחִים בְּכֹל הַצְּבָעִים. פַּרְפַּרִים בָּאִים לְבַקֵּר כֹּל יוֹם. אֲנִי מַשְׁקָה אֶת הַפְּרָחִים כֹּל בֹּקֶר. הַגִּנָּה שֶׁלִּי הֲכִי יָפָה!',d:3,cat:'nature',em:'🌺',
+q:[{q:'מָה גָּדֵל בַּגִּנָּה?',o:['עֵצִים','פְּרָחִים צִבְעוֹנִיִּים','יְרָקוֹת'],a:1},{q:'מִי בָּא לְבַקֵּר בַּגִּנָּה?',o:['חֲתוּלִים','צִפּוֹרִים','פַּרְפַּרִים'],a:2}],
+v:[{w:'קְּסוּמָה',def:'מָלֵאָה קֶסֶם וְיוֹפִי',syl:'קְּ-סוּ-מָה'}]},
+
+{id:21,title:'חֲנֻכָּה בַּמִּשְׁפָּחָה',text:'חֲנֻכָּה הִגִּיעָה וַאֲנַחְנוּ שְׂמֵחִים! הִדְלַקְנוּ נֵרוֹת בַּחֲנֻכִּיָּה. אָכַלְנוּ סֻפְגָּנִיּוֹת מְתוּקוֹת וּלְבִיבוֹת. שִׂחַקְנוּ בַּסְּבִיבוֹן כֹּל הָעֶרֶב. סָבָא וְסָבְתָא גַּם בָּאוּ לְבַקֵּר.',d:3,cat:'holidays',em:'🕎',
+q:[{q:'מָה אָכְלוּ בַּחֲנֻכָּה?',o:['מַצּוֹת','סֻפְגָּנִיּוֹת וּלְבִיבוֹת','עוּגִיּוֹת'],a:1},{q:'בַּמָּה שִׂחֲקוּ?',o:['בְּכַדּוּר','בַּסְּבִיבוֹן','בְּמִשְׂחַק לוּחַ'],a:1}],
+v:[{w:'חֲנֻכִּיָּה',def:'כְּלִי עִם מָקוֹם לְנֵרוֹת שֶׁל חֲנֻכָּה',syl:'חֲ-נֻ-כִּ-יָּה'},{w:'סְבִיבוֹן',def:'צַעֲצוּעַ שֶׁמִּסְתּוֹבֵב',syl:'סְ-בִי-בוֹן'}]},
+
+{id:22,title:'הַצִּפּוֹר שֶׁלָּמְדָה לָעוּף',text:'צִפּוֹר קְטַנָּה יָשְׁבָה בַּקֵּן שֶׁלָּהּ. הִיא פָּחֲדָה מְאוֹד לָעוּף. אִמָּא צִפּוֹר אָמְרָה: אַל תִּפְחֲדִי, אֲנִי כָּאן! הַצִּפּוֹר הַקְּטַנָּה פָּתְחָה אֶת הַכְּנָפַיִם. וְאָז הִיא עָפָה גָּבוֹהַּ בַּשָּׁמַיִם!',d:3,cat:'animals',em:'🐦',
+q:[{q:'לָמָּה הַצִּפּוֹר פָּחֲדָה?',o:['מֵחֲתוּלִים','לָעוּף','מֵהַגֶּשֶׁם'],a:1},{q:'מִי עָזְרָה לַצִּפּוֹר?',o:['יַלְדָּה','אִמָּא צִפּוֹר','הָרוּחַ'],a:1}],
+v:[{w:'כְּנָפַיִם',def:'מָה שֶׁצִּפּוֹר מִשְׁתַּמֶּשֶׁת כְּדֵי לָעוּף',syl:'כְּ-נָ-פַ-יִם'}]},
+
+{id:23,title:'הַמַּסָּע שֶׁל הַנְּמָלָה',text:'נְמָלָה קְטַנָּה יָצְאָה לְטִיּוּל אָרוּךְ. הִיא רָצְתָה לִמְצוֹא אוֹכֶל לַמִּשְׁפָּחָה שֶׁלָּהּ. הַדֶּרֶךְ הָיְתָה קָשָׁה וַאֲרוּכָּה. הִיא עָבְרָה מֵעַל אֲבָנִים וּמִתַּחַת לַעֲלֵי עֵץ. בַּסּוֹף מָצְאָה פֵּרוּר עוּגָה גָּדוֹל. הִיא חָזְרָה הַבַּיְתָה שְׂמֵחָה וּגְאָה.',d:4,cat:'adventure',em:'🐜',
+q:[{q:'לָמָּה הַנְּמָלָה יָצְאָה לְטִיּוּל?',o:['לְטַיֵּל','לִמְצוֹא אוֹכֶל','לִפְגּוֹשׁ חֲבֵרִים'],a:1},{q:'מָה הַנְּמָלָה מָצְאָה?',o:['פֶּרַח','פֵּרוּר עוּגָה','מַיִם'],a:1}],
+v:[{w:'נְמָלָה',def:'חַיָּה קְטַנְטַנָּה שֶׁעוֹבֶדֶת קָשֶׁה',syl:'נְ-מָ-לָה'},{w:'פֵּרוּר',def:'חֲתִיכָה קְטַנָּה שֶׁל אוֹכֶל',syl:'פֵּ-רוּר'}]},
+
+{id:24,title:'שַׁבָּת שָׁלוֹם',text:'יוֹם שִׁשִּׁי אַחַר הַצָּהֳרַיִם וְהַבַּיִת מֵרִיחַ טוֹב. אִמָּא מַדְלִיקָה נֵרוֹת שַׁבָּת. אָבָא מְקַדֵּשׁ עַל הַיַּיִן. כֹּל הַמִּשְׁפָּחָה יוֹשֶׁבֶת סָבִיב הַשֻּׁלְחָן. אוֹכְלִים אוֹכֶל טָעִים וּמְסַפְּרִים סִפּוּרִים. שַׁבָּת שָׁלוֹם לְכוּלָּם!',d:4,cat:'holidays',em:'🕯️',
+q:[{q:'מָה אִמָּא עוֹשָׂה?',o:['מְבַשֶּׁלֶת','מַדְלִיקָה נֵרוֹת','קוֹרֵאת'],a:1},{q:'מָה עוֹשִׂים לְיַד הַשֻּׁלְחָן?',o:['לוֹמְדִים','אוֹכְלִים וּמְסַפְּרִים','יְשֵׁנִים'],a:1}],
+v:[{w:'מְקַדֵּשׁ',def:'אוֹמֵר בְּרָכָה מְיֻחֶדֶת',syl:'מְ-קַ-דֵּשׁ'}]},
+
+{id:25,title:'הָעוֹלָם מִלְמַעְלָה',text:'דָּנָה טָסָה בְּמָטוֹס בַּפַּעַם הָרִאשׁוֹנָה. הִיא הִתְרַגְּשָׁה מְאוֹד! מֵהַחַלּוֹן הַבָּתִּים נִרְאוּ קְטַנְטַנִּים. הַמְּכוֹנִיּוֹת נִרְאוּ כְּמוֹ נְמָלִים. הֶעָנָנִים הָיוּ לְבָנִים וְקָרוֹבִים. דָּנָה חִיְּכָה - הָיָה מַדְהִים!',d:4,cat:'adventure',em:'✈️',
+q:[{q:'אֵיךְ דָּנָה הִרְגִּישָׁה?',o:['מְפֻחֶדֶת','מִתְרַגֶּשֶׁת','עָיְפָה'],a:1},{q:'אֵיךְ הַבָּתִּים נִרְאוּ מִלְמַעְלָה?',o:['גְּדוֹלִים','קְטַנְטַנִּים','צִבְעוֹנִיִּים'],a:1}],
+v:[{w:'מָטוֹס',def:'כְּלִי תַּחְבּוּרָה שֶׁטָּס בַּשָּׁמַיִם',syl:'מָ-טוֹס'},{w:'הִתְרַגְּשָׁה',def:'הִרְגִּישָׁה שִׂמְחָה וְהַפְתָּעָה',syl:'הִתְ-רַגְּ-שָׁה'}]},
+
+{id:26,title:'הֶחָבֵר הֶחָדָשׁ',text:'יֶלֶד חָדָשׁ הִגִּיעַ לַכִּתָּה שֶׁלָּנוּ. הַשֵּׁם שֶׁלּוֹ נֹעַם. הוּא הָיָה בִּיְשָׁן וְלֹא דִּבֵּר עִם אַף אֶחָד. בַּהַפְסָקָה הָלַכְתִּי אֵלָיו וְהִצַּעְתִּי לְשַׂחֵק. אַחֲרֵי כַּמָּה יָמִים הוּא הָיָה הֶחָבֵר הֲכִי טוֹב שֶׁלִּי. תָּמִיד כְּדַאי לָתֵת הִזְדַּמְּנוּת.',d:4,cat:'friendship',em:'🤝',
+q:[{q:'אֵיךְ נֹעַם הָיָה בַּהַתְחָלָה?',o:['שָׂמֵחַ','בִּיְשָׁן','כּוֹעֵס'],a:1},{q:'מָה הַמְּסַפֵּר עָשָׂה?',o:['הִתְעַלֵּם','הִצִּיק לוֹ','הִצִּיעַ לְשַׂחֵק'],a:2}],
+v:[{w:'בִּיְשָׁן',def:'מִי שֶׁמִּתְבַּיֵּשׁ לְדַבֵּר עִם אֲחֵרִים',syl:'בִּי-שָׁן'}]},
+
+{id:27,title:'סוֹד הַקֶּשֶׁת',text:'אַחֲרֵי הַגֶּשֶׁם הַגָּדוֹל הוֹפִיעָה קֶשֶׁת בַּשָּׁמַיִם. הָיוּ בָּהּ שִׁבְעָה צְבָעִים יָפִים: אָדוֹם, כָּתוֹם, צָהוֹב, יָרוֹק, כָּחוֹל, סָגוֹל. נָעֳמִי חָלְמָה לְהַגִּיעַ לַקָּצֶה שֶׁל הַקֶּשֶׁת. הִיא רָצָה וְרָצָה אֲבָל הַקֶּשֶׁת תָּמִיד הָיְתָה רְחוֹקָה. אָז הִיא הֵבִינָה: הַקֶּשֶׁת עַצְמָהּ הִיא הָאוֹצָר.',d:4,cat:'nature',em:'🌈',
+q:[{q:'כַּמָּה צְבָעִים יֵשׁ בַּקֶּשֶׁת?',o:['חָמִשָּׁה','שִׁבְעָה','עֲשָׂרָה'],a:1},{q:'מָה נָעֳמִי הֵבִינָה?',o:['שֶׁאִי אֶפְשָׁר לָרוּץ','שֶׁהַקֶּשֶׁת הִיא הָאוֹצָר','שֶׁהַגֶּשֶׁם טוֹב'],a:1}],
+v:[{w:'קֶשֶׁת',def:'פַּס צִבְעוֹנִי בַּשָּׁמַיִם אַחֲרֵי גֶּשֶׁם',syl:'קֶ-שֶׁת'}]},
+
+{id:28,title:'הַמֶּלֶךְ וְהַצִּפּוֹר',text:'פַּעַם הָיָה מֶלֶךְ שֶׁגָּר בְּאַרְמוֹן גָּדוֹל וְיָפֶה. לַמֶּלֶךְ הָיָה הַכֹּל, אֲבָל הוּא הָיָה עָצוּב כִּי לֹא הָיוּ לוֹ חֲבֵרִים. יוֹם אֶחָד צִפּוֹר קְטַנָּה נִכְנְסָה דֶּרֶךְ הַחַלּוֹן. הִיא שָׁרָה שִׁיר יָפֶה וּמָלֵא שִׂמְחָה. הַמֶּלֶךְ חִיֵּךְ בַּפַּעַם הָרִאשׁוֹנָה מִזְּמַן רַב. מֵאָז הַצִּפּוֹר בָּאָה לָשִׁיר כֹּל יוֹם. הַמֶּלֶךְ הֵבִין שֶׁחֲבֵרוּת אֲמִתִּית שָׁוָה יוֹתֵר מִכֹּל הַזָּהָב בָּעוֹלָם.',d:5,cat:'adventure',em:'👑',
+q:[{q:'לָמָּה הַמֶּלֶךְ הָיָה עָצוּב?',o:['הוּא הָיָה חוֹלֶה','לֹא הָיוּ לוֹ חֲבֵרִים','הוּא הָיָה עָנִי'],a:1},{q:'מָה הַמֶּלֶךְ לָמַד?',o:['לָשִׁיר','שֶׁחֲבֵרוּת שָׁוָה יוֹתֵר מִזָּהָב','לָעוּף'],a:1}],
+v:[{w:'אַרְמוֹן',def:'בַּיִת גָּדוֹל וּמְפוֹאָר שֶׁל מֶלֶךְ',syl:'אַרְ-מוֹן'},{w:'חֲבֵרוּת',def:'קֶשֶׁר טוֹב בֵּין חֲבֵרִים',syl:'חֲ-בֵ-רוּת'}]},
+
+{id:29,title:'הָאִי הַנִּסְתָּר',text:'שְׁלוֹשָׁה יְלָדִים מָצְאוּ מַפָּה יְשָׁנָה בַּעֲלִיַּת הַגָּג. בַּמַּפָּה הָיָה מְסֻמָּן אִי קָטָן בָּיָם. הֵם הֶחְלִיטוּ לָצֵאת לְהַרְפַּתְקָה. בָּנוּ סִירָה קְטַנָּה מֵעֵץ וְיָצְאוּ לַיָּם. אַחֲרֵי הַפְלָגָה אֲרוּכָּה הִגִּיעוּ לָאִי. בָּאִי מָצְאוּ עֵצִים עִם פֵּרוֹת מְתוּקִים וּפַרְפַּרִים בְּכֹל הַצְּבָעִים. הַיְּלָדִים הֵבִינוּ שֶׁהַהַרְפַּתְקָה הֲכִי טוֹבָה הִיא עִם חֲבֵרִים אֲמִתִּיִּים.',d:5,cat:'adventure',em:'🏝️',
+q:[{q:'מָה הַיְּלָדִים מָצְאוּ בַּעֲלִיַּת הַגָּג?',o:['צַעֲצוּעַ','מַפָּה יְשָׁנָה','סֵפֶר'],a:1},{q:'מָה הַיְּלָדִים הֵבִינוּ?',o:['שֶׁהַיָּם מַפְחִיד','שֶׁהַרְפַּתְקָה טוֹבָה עִם חֲבֵרִים','שֶׁצָּרִיךְ סִירָה גְּדוֹלָה'],a:1}],
+v:[{w:'הַפְלָגָה',def:'נְסִיעָה בְּסִירָה עַל הַמַּיִם',syl:'הַפְ-לָ-גָה'},{w:'הַרְפַּתְקָה',def:'חֲוָיָה מְרַגֶּשֶׁת וּמְיֻחֶדֶת',syl:'הַרְ-פַּתְ-קָה'}]},
+
+{id:30,title:'חֲלוֹם שֶׁל לַיְלָה',text:'מָיָה נִרְדְּמָה וְחָלְמָה חֲלוֹם מַדְהִים. בַּחֲלוֹם הִיא הָפְכָה לְפַרְפַּר גָּדוֹל וּצְבָעוֹנִי. הִיא עָפָה מֵעַל הָרִים גְּבוֹהִים וְיַמִּים כְּחוּלִים. רָאֲתָה עָרִים מְנַצְנְצוֹת בָּאוֹר שֶׁל הַלַּיְלָה. פָּגְשָׁה כּוֹכָבִים שֶׁדִּבְּרוּ אֵלֶיהָ וְאָמְרוּ: כֹּל דָּבָר אֶפְשָׁרִי אִם מַאֲמִינִים. כְּשֶׁמָּיָה הִתְעוֹרְרָה בַּבֹּקֶר הִיא חִיְּכָה חִיּוּךְ גָּדוֹל.',d:5,cat:'adventure',em:'🌙',
+q:[{q:'לְמָה מָיָה הָפְכָה בַּחֲלוֹם?',o:['לְצִפּוֹר','לְפַרְפַּר','לְכוֹכָב'],a:1},{q:'מָה הַכּוֹכָבִים אָמְרוּ?',o:['לַיְלָה טוֹב','כֹּל דָּבָר אֶפְשָׁרִי','לְכִי הַבַּיְתָה'],a:1}],
+v:[{w:'מַאֲמִינִים',def:'חוֹשְׁבִים שֶׁמַּשֶּׁהוּ אֱמֶת וְאֶפְשָׁרִי',syl:'מַ-אֲ-מִי-נִים'}]},
+
+{id:31,title:'הַמִּדְבָּר הַפּוֹרֵחַ',text:'בַּמִּדְבָּר הַיָּבֵשׁ וְהַחַם לֹא צוֹמֵחַ כִּמְעַט כְּלוּם. הָאָרֶץ חוּמָה וְיְבֵשָׁה כֹּל הַשָּׁנָה. אֲבָל פַּעַם בְּשָׁנָה יוֹרֵד גֶּשֶׁם גָּדוֹל עַל הַמִּדְבָּר. וְאָז קוֹרֶה דָּבָר מַדְהִים - הַמִּדְבָּר פּוֹרֵחַ! פְּרָחִים אֲדוּמִּים, סְגוּלִים וּלְבָנִים מְכַסִּים אֶת הָאָרֶץ. חַיּוֹת בָּאוֹת מִכֹּל מָקוֹם לִרְאוֹת אֶת הַיֹּפִי. זֶה נִמְשָׁךְ רַק כַּמָּה יָמִים, אֲבָל הַזִּכָּרוֹן נִשְׁאָר לְתָמִיד.',d:5,cat:'nature',em:'🏜️',
+q:[{q:'מָה קוֹרֶה אַחֲרֵי הַגֶּשֶׁם?',o:['הַמִּדְבָּר נִשְׁאָר יָבֵשׁ','הַמִּדְבָּר פּוֹרֵחַ','הַמַּיִם נֶעֶלְמִים'],a:1},{q:'כַּמָּה זְמַן נִמְשָׁךְ הַפְּרִיחָה?',o:['שָׁנָה','חוֹדֶשׁ','כַּמָּה יָמִים'],a:2}],
+v:[{w:'מִדְבָּר',def:'מָקוֹם יָבֵשׁ עִם חוֹל וּמְעַט מַיִם',syl:'מִדְ-בָּר'},{w:'פּוֹרֵחַ',def:'כְּשֶׁפְּרָחִים נִפְתָּחִים וְגְּדֵלִים',syl:'פּוֹ-רֵ-חַ'}]},
+
+{id:32,title:'כּוֹכָב קָטָן',text:'כּוֹכָב קָטָן יָשַׁב גָּבוֹהַּ בַּשָּׁמַיִם וְהִסְתַּכֵּל לְמַטָּה. הוּא רָאָה יְלָדִים מְשַׂחֲקִים וְרָצָה לָרֶדֶת אֲלֵיהֶם. הוּא שָׁאַל אֶת הַיָּרֵחַ: אֶפְשָׁר לָרֶדֶת? הַיָּרֵחַ אָמַר: אִם תֵּרֵד, תִּהְיֶה כּוֹכָב נוֹפֵל וְאֲנָשִׁים יְבַקְשׁוּ מִשְׁאָלוֹת. הַכּוֹכָב יָרַד בַּלַּיְלָה כְּמוֹ אוֹר זוֹהֵר. יֶלֶד קָטָן רָאָה אוֹתוֹ וּבִקֵּשׁ מִשְׁאָלָה אַחַת: לִהְיוֹת שָׂמֵחַ. הַכּוֹכָב חָזַר לַשָּׁמַיִם וְשָׁלַח לַיֶּלֶד חֲלוֹם יָפֶה וּמָלֵא אוֹר.',d:5,cat:'adventure',em:'💫',
+q:[{q:'מָה הַכּוֹכָב רָצָה?',o:['לִהְיוֹת גָּדוֹל','לָרֶדֶת לָאָרֶץ','לִישׁוֹן'],a:1},{q:'מָה הַיֶּלֶד בִּקֵּשׁ?',o:['כֶּסֶף','צַעֲצוּעַ','לִהְיוֹת שָׂמֵחַ'],a:2}],
+v:[{w:'מִשְׁאָלָה',def:'דָּבָר שֶׁמְּאוֹד רוֹצִים שֶׁיִּקְרֶה',syl:'מִשְׁ-אָ-לָה'},{w:'זוֹהֵר',def:'מֵאִיר בְּאוֹר יָפֶה',syl:'זוֹ-הֵר'}]}
+];
+
+const BADGES = [
+  {id:'first_story',name:'סיפור ראשון!',icon:'fa-book-open',desc:'קראת את הסיפור הראשון',check:s=>s.completedStories.length>=1},
+  {id:'five_stories',name:'5 סיפורים!',icon:'fa-books',desc:'קראת 5 סיפורים',check:s=>s.completedStories.length>=5},
+  {id:'ten_stories',name:'10 סיפורים!',icon:'fa-trophy',desc:'קראת 10 סיפורים',check:s=>s.completedStories.length>=10},
+  {id:'streak_3',name:'רצף 3 ימים!',icon:'fa-fire',desc:'קראת 3 ימים ברציפות',check:s=>s.streak>=3},
+  {id:'streak_5',name:'רצף 5 ימים!',icon:'fa-fire-flame-curved',desc:'קראת 5 ימים ברציפות',check:s=>s.streak>=5},
+  {id:'perfect',name:'ציון מושלם!',icon:'fa-star',desc:'ענית נכון על כל השאלות בסיפור',check:s=>s.perfectQuizzes>=1},
+  {id:'vocab_10',name:'אוסף מילים!',icon:'fa-spell-check',desc:'שמרת 10 מילים',check:s=>s.savedWords.length>=10},
+  {id:'all_stars',name:'50 כוכבים!',icon:'fa-stars',desc:'אספת 50 כוכבים',check:s=>s.stars>=50},
+];
+
+const PET_STAGES = [
+  {name:'ביצה',emoji:'🥚',min:0},
+  {name:'בוקע',emoji:'🐣',min:10},
+  {name:'אפרוח',emoji:'🐥',min:30},
+  {name:'ציפור',emoji:'🐤',min:60},
+  {name:'תוכי',emoji:'🦜',min:100},
+  {name:'עוף החול',emoji:'🦅',min:200},
+];
+
+let state = {
+  screen:'home', params:{}, stars:0, coins:0, streak:0, lastDate:null,
+  completedStories:[], earnedBadges:[], savedWords:[], favorites:[], fontSize:'medium',
+  readingSpeed:0.85, perfectQuizzes:0, totalQCorrect:0, totalQAnswered:0,
+  currentKaraokeIdx:-1, isSpeaking:false, quizResults:{}, diffFilter:0, catFilter:'all',
+  generatedStories:[], apiKey:''
+};
+
+function save(){
+  const d={...state}; delete d.screen; delete d.params; delete d.currentKaraokeIdx; delete d.isSpeaking;
+  localStorage.setItem('hebrewReadApp',JSON.stringify(d));
+}
+function load(){
+  try{ const d=JSON.parse(localStorage.getItem('hebrewReadApp')); if(d){ if(!d.favorites) d.favorites=[]; if(!d.generatedStories) d.generatedStories=[]; Object.assign(state,d); } }catch(e){}
+}
+function getAllStories(){
+  return [...STORIES,...state.generatedStories];
+}
+function getPetStage(){
+  let stage=0; for(let i=PET_STAGES.length-1;i>=0;i--){ if(state.stars>=PET_STAGES[i].min){stage=i;break;} } return stage;
+}
+function getPetProgress(){
+  const cur=getPetStage(); if(cur>=PET_STAGES.length-1) return 100;
+  const curMin=PET_STAGES[cur].min, nextMin=PET_STAGES[cur+1].min;
+  return Math.round((state.stars-curMin)/(nextMin-curMin)*100);
+}
+function getGreeting(){
+  const h=new Date().getHours();
+  if(h<12) return 'בוקר טוב! ☀️'; if(h<17) return 'צהריים טובים! 🌤️';
+  if(h<21) return 'ערב טוב! 🌅'; return 'לילה טוב! 🌙';
+}
+function getDailyStories(){
+  const d=Math.floor(Date.now()/86400000);
+  const indices=[];
+  for(let i=0;i<5;i++) indices.push((d*7+i*3)%STORIES.length);
+  return [...new Set(indices)].map(i=>STORIES[i]);
+}
+function updateStreak(){
+  const today=new Date().toDateString();
+  if(state.lastDate===today) return;
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  if(state.lastDate===yesterday){ state.streak++; } else if(state.lastDate!==today){ state.streak=0; }
+  state.lastDate=today; save();
+}
+function earnStars(n){
+  state.stars+=n; state.coins+=Math.floor(n/2); save(); checkBadges();
+}
+function toggleFav(id){
+  const idx=state.favorites.indexOf(id);
+  if(idx>=0) state.favorites.splice(idx,1); else state.favorites.push(id);
+  save(); render();
+}
+function checkBadges(){
+  let newBadge=null;
+  BADGES.forEach(b=>{
+    if(!state.earnedBadges.includes(b.id) && b.check(state)){
+      state.earnedBadges.push(b.id); newBadge=b;
+    }
+  });
+  save();
+  if(newBadge) showBadgePopup(newBadge);
+}
+function showBadgePopup(badge){
+  const div=document.createElement('div');
+  div.className='fixed inset-0 z-50 flex items-center justify-center';
+  div.style.background='rgba(0,0,0,0.4)';
+  div.innerHTML=`<div class="card text-center p-8 animate-pop max-w-xs mx-4">
+    <div class="text-6xl mb-4"><i class="fas ${badge.icon}" style="color:#FBBF24"></i></div>
+    <h2 class="font-title text-2xl font-bold mb-2" style="color:#C084FC">כל הכבוד! 🎉</h2>
+    <h3 class="text-xl font-semibold mb-2">${badge.name}</h3>
+    <p class="text-gray-500 mb-4">${badge.desc}</p>
+    <button onclick="this.closest('.fixed').remove()" class="btn-primary">יופי! 🌟</button>
+  </div>`;
+  document.body.appendChild(div); showConfetti();
+}
+function showConfetti(){
+  const c=document.getElementById('confetti-container');
+  const colors=['#FF6B9D','#C084FC','#60A5FA','#FBBF24','#34D399','#FB923C'];
+  for(let i=0;i<40;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}vw;background:${colors[i%6]};animation:confettiFall ${1+Math.random()*2}s ease-in ${Math.random()*0.5}s forwards;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};`;
+    c.appendChild(p);
+  }
+  setTimeout(()=>{c.innerHTML='';},4000);
+}
+function toggleParentPanel(){
+  document.getElementById('parentOverlay').classList.toggle('show');
+  updateParentContent();
+}
+function updateParentContent(){
+  const read=state.completedStories.length;
+  const accuracy=state.totalQAnswered?Math.round(state.totalQCorrect/state.totalQAnswered*100):0;
+  document.getElementById('parentContent').innerHTML=`
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">סיפורים שהושלמו</span>
+      <span style="font-weight:700">${read} / ${getAllStories().length}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">מילים חדשות שנלמדו</span>
+      <span style="font-weight:700">${state.savedWords.length}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">דיוק בשאלות הבנה</span>
+      <span style="font-weight:700">${accuracy}%</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">רצף ימים</span>
+      <span style="font-weight:700">🔥 ${state.streak}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">כוכבים</span>
+      <span style="font-weight:700">⭐ ${state.stars}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f5f5f5">
+      <span style="color:#4A5568">תגים שהושגו</span>
+      <span style="font-weight:700">${state.earnedBadges.length}/${BADGES.length}</span>
+    </div>
+    <div style="padding:12px 0;display:flex;gap:8px">
+      <button onclick="toggleParentPanel();navigate('settings')" class="btn-primary" style="flex:1;padding:10px">⚙️ הגדרות</button>
+      <button onclick="if(confirm('למחוק את כל ההתקדמות?')){localStorage.removeItem('hebrewReadApp');location.reload()}" style="flex:1;padding:10px;border:2px solid #EF5350;border-radius:16px;background:white;color:#EF5350;font-weight:600;cursor:pointer;">🗑️ אפס</button>
+    </div>`;
+}
+
+function speakText(text,onBound,onEnd){
+  window.speechSynthesis.cancel();
+  const cleanText=text.replace(/[\u0591-\u05C7]/g,'');
+  const u=new SpeechSynthesisUtterance(cleanText);
+  u.lang='he-IL'; u.rate=state.readingSpeed; u.pitch=1.2;
+  // Voice selection: try multiple strategies to find a female/soft voice
+  const allVoices=speechSynthesis.getVoices();
+  const heVoices=allVoices.filter(v=>v.lang.startsWith('he'));
+  // Strategy 1: explicit female labels
+  let voice=heVoices.find(v=>/female|woman|נשי|carmit|lihi|yael|tali|michal/i.test(v.name));
+  // Strategy 2: Google Hebrew voice (tends to be female)
+  if(!voice) voice=heVoices.find(v=>/google/i.test(v.name));
+  // Strategy 3: any Hebrew voice that is NOT explicitly male
+  if(!voice) voice=heVoices.find(v=>!/\bmale\b/i.test(v.name));
+  // Strategy 4: any Hebrew voice
+  if(!voice) voice=heVoices[0];
+  // Strategy 5: try ANY voice with female label as last resort
+  if(!voice) voice=allVoices.find(v=>/female|woman/i.test(v.name));
+  if(voice) u.voice=voice;
+  const words=text.split(/\s+/);
+  let finished=false;
+  // Use onboundary if browser supports it
+  let boundaryWorked=false;
+  let wordIdx=0;
+  u.onboundary=e=>{
+    if(e.name==='word' && onBound){
+      boundaryWorked=true;
+      onBound(wordIdx);
+      wordIdx++;
+    }
+  };
+  u.onend=()=>{ finished=true; state.isSpeaking=false; if(onEnd) onEnd(); };
+  u.onerror=()=>{ finished=true; state.isSpeaking=false; if(onEnd) onEnd(); };
+  state.isSpeaking=true;
+  speechSynthesis.speak(u);
+  // Fallback timer only if onboundary doesn't fire after 500ms
+  setTimeout(()=>{
+    if(!boundaryWorked && !finished && onBound){
+      let idx=0;
+      const totalDuration=(cleanText.length*60)/(120*state.readingSpeed);
+      const perWord=(totalDuration/words.length)*1000;
+      const timer=setInterval(()=>{
+        if(finished||idx>=words.length){clearInterval(timer);return;}
+        onBound(idx); idx++;
+      },perWord);
+      u.onend=()=>{ clearInterval(timer); finished=true; state.isSpeaking=false; if(onEnd) onEnd(); };
+      u.onerror=()=>{ clearInterval(timer); finished=true; state.isSpeaking=false; if(onEnd) onEnd(); };
+    }
+  },500);
+}
+function speakWord(word){
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(word.replace(/[\u0591-\u05C7]/g,''));
+  u.lang='he-IL'; u.rate=0.7; u.pitch=1.2;
+  const allVoices=speechSynthesis.getVoices();
+  const heVoices=allVoices.filter(v=>v.lang.startsWith('he'));
+  let voice=heVoices.find(v=>/female|woman|נשי|carmit|lihi|yael|tali|michal/i.test(v.name));
+  if(!voice) voice=heVoices.find(v=>/google/i.test(v.name));
+  if(!voice) voice=heVoices.find(v=>!/\bmale\b/i.test(v.name));
+  if(!voice) voice=heVoices[0];
+  if(!voice) voice=allVoices.find(v=>/female|woman/i.test(v.name));
+  if(voice) u.voice=voice;
+  speechSynthesis.speak(u);
+}
+
+function navigate(screen,params={}){
+  state.screen=screen; state.params=params;
+  window.scrollTo(0,0); render();
+}
+
+function renderNav(){
+  const tabs=[
+    {s:'home',icon:'🏠',cls:'nav-icon-home',label:'דף הבית'},
+    {s:'library',icon:'📚',cls:'nav-icon-books',label:'סיפורים'},
+    {s:'vocab',icon:'🔤',cls:'nav-icon-words',label:'אוצר מילים'},
+    {s:'flashcards',icon:'🃏',cls:'nav-icon-cards',label:'כרטיסיות'},
+    {s:'rewards',icon:'🏆',cls:'nav-icon-prizes',label:'פרסים'},
+  ];
+  document.getElementById('bottomNav').innerHTML=tabs.map(t=>`
+    <div class="nav-item ${state.screen===t.s?'active':''}" onclick="navigate('${t.s}')">
+      ${state.screen===t.s?'<div class="nav-active-dot"></div>':''}
+      <div class="nav-icon ${t.cls}">${t.icon}</div>
+      <span class="nav-label">${t.label}</span>
+    </div>
+  `).join('');
+  const pet=PET_STAGES[getPetStage()];
+  document.getElementById('avatarBtn').textContent=pet.emoji;
+  document.getElementById('hdr-stars').textContent='⭐ '+state.stars;
+  document.getElementById('hdr-coins').textContent='🪙 '+state.coins;
+  document.getElementById('hdr-streak').textContent='🔥 '+state.streak;
+}
+
+function render(){
+  const app=document.getElementById('app');
+  app.className=`min-h-screen font-${state.fontSize}`;
+  app.style.paddingTop='60px';
+  app.style.paddingBottom='90px';
+  switch(state.screen){
+    case'home': app.innerHTML=renderHome(); break;
+    case'library': app.innerHTML=renderLibrary(); break;
+    case'story': app.innerHTML=renderStory(state.params.id); break;
+    case'quiz': app.innerHTML=renderQuiz(state.params.id); break;
+    case'vocab': app.innerHTML=renderVocab(); break;
+    case'flashcards': app.innerHTML=renderFlashcards(); break;
+    case'rewards': app.innerHTML=renderRewards(); break;
+    case'settings': app.innerHTML=renderSettings(); break;
+    default: app.innerHTML=renderHome();
+  }
+  renderNav();
+}
+
+function getCatLabel(cat){
+  const labels={animals:'בעלי חיים',family:'משפחה',school:'בית ספר',nature:'טבע',holidays:'חגים',adventure:'הרפתקאות',funny:'מצחיק',friendship:'חברות'};
+  return labels[cat]||cat;
+}
+function surpriseStory(){
+  const all=getAllStories();
+  const unread=all.filter(s=>!state.completedStories.includes(s.id));
+  const pool=unread.length?unread:all;
+  const pick=pool[Math.floor(Math.random()*pool.length)];
+  navigate('story',{id:pick.id});
+}
+
+function renderHome(){
+  const pet=PET_STAGES[getPetStage()];
+  const dailyStories=getDailyStories();
+  const allStories=getAllStories();
+  const completed=state.completedStories.length;
+  const pct=Math.round(completed/allStories.length*100);
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <div class="greeting-card">
+      <div style="font-size:40px">👋</div>
+      <div>
+        <h2 class="font-title" style="font-size:18px">${getGreeting()}</h2>
+        <p style="font-size:13px;color:#4A5568">בוא נקרא סיפור היום!</p>
+      </div>
+    </div>
+    <h3 class="font-title" style="font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:6px">📚 הסיפורים של היום</h3>
+    <div class="stories-scroll">
+      <div class="story-card-mini" onclick="surpriseStory()" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:2px dashed #4CAF50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+        <div style="font-size:36px">✨</div>
+        <div class="font-title" style="font-size:12px;color:#2E7D32">סיפור הפתעה!</div>
+      </div>
+      ${dailyStories.map(s=>`
+        <div class="story-card-mini" onclick="navigate('story',{id:${s.id}})">
+          <div style="font-size:36px;margin-bottom:6px">${s.em}</div>
+          <div class="font-title" style="font-size:13px;line-height:1.3">${s.title}</div>
+          <div style="display:flex;justify-content:center;gap:3px;margin-top:6px">
+            ${'<span style="font-size:12px">⭐</span>'.repeat(s.d)}
+          </div>
+          ${state.completedStories.includes(s.id)?'<div style="color:#34D399;font-size:14px;margin-top:4px">✓ הושלם</div>':''}
+        </div>
+      `).join('')}
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span class="font-title" style="font-size:14px">📈 ההתקדמות שלי</span>
+        <span style="font-size:13px;font-weight:600">${completed}/${allStories.length}</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:${pct}%"></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+      <button class="card" style="text-align:center;padding:16px;cursor:pointer;border:none" onclick="navigate('library')">
+        <div style="font-size:28px;margin-bottom:4px">📚</div>
+        <div class="font-title" style="font-size:14px">כל הסיפורים</div>
+      </button>
+      <button class="card" style="text-align:center;padding:16px;cursor:pointer;border:none" onclick="navigate('vocab')">
+        <div style="font-size:28px;margin-bottom:4px">📝</div>
+        <div class="font-title" style="font-size:14px">המילים שלי</div>
+        <div style="font-size:11px;color:#9CA3AF">${state.savedWords.length} מילים</div>
+      </button>
+    </div>
+    <div class="card" style="text-align:center;margin-top:16px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+        <span style="font-size:40px" class="animate-float">${pet.emoji}</span>
+        <div>
+          <p class="font-title" style="font-size:16px">${pet.name}</p>
+          <div style="width:120px;height:8px;background:#e8e8e8;border-radius:8px;overflow:hidden;margin-top:4px">
+            <div style="height:100%;border-radius:8px;background:linear-gradient(90deg,#FBBF24,#FB923C);width:${getPetProgress()}%"></div>
+          </div>
+          <p style="font-size:11px;color:#9CA3AF;margin-top:4px">${getPetStage()<PET_STAGES.length-1?`עוד ${PET_STAGES[getPetStage()+1].min-state.stars} ⭐ לשלב הבא`:'שלב מקסימלי! 🎉'}</p>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderLibrary(){
+  const diffs=[0,1,2,3,4,5];
+  const cats=['all','animals','family','school','nature','holidays','adventure','friendship','funny'];
+  const allStories=getAllStories();
+  let filtered=allStories;
+  if(state.diffFilter>0) filtered=filtered.filter(s=>s.d===state.diffFilter);
+  if(state.catFilter!=='all') filtered=filtered.filter(s=>s.cat===state.catFilter);
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <h2 class="font-title text-center" style="font-size:22px;margin-bottom:12px">📚 ספריית הסיפורים</h2>
+    <button onclick="showGenerateModal()" style="width:100%;padding:14px;border:2px dashed #4CAF50;border-radius:16px;background:linear-gradient(135deg,#E8F5E9,#C8E6C9);color:#2E7D32;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;cursor:pointer;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s">
+      ✨ צור סיפור חדש עם AI
+    </button>
+    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px">
+      ${diffs.map(d=>`<button onclick="state.diffFilter=${d};render()" style="white-space:nowrap;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700;border:none;cursor:pointer;transition:all 0.2s;${state.diffFilter===d?'background:#C084FC;color:white':'background:rgba(255,255,255,0.9);color:#4A5568'}">${d===0?'הכל':'⭐'.repeat(d)}</button>`).join('')}
+    </div>
+    <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px">
+      ${cats.map(c=>`<button onclick="state.catFilter='${c}';render()" style="white-space:nowrap;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700;border:none;cursor:pointer;${state.catFilter===c?'background:#FF6B9D;color:white':'background:rgba(255,255,255,0.9);color:#4A5568'}">${c==='all'?'הכל':getCatLabel(c)}</button>`).join('')}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${filtered.map(s=>{
+        const done=state.completedStories.includes(s.id);
+        const isFav=state.favorites.includes(s.id);
+        return `<div class="card difficulty-${s.d}" style="display:flex;align-items:center;gap:12px;cursor:pointer" onclick="navigate('story',{id:${s.id}})">
+          <span style="font-size:32px">${s.em}</span>
+          <div style="flex:1">
+            <h3 class="font-title" style="font-size:16px">${s.title}</h3>
+            <p style="font-size:12px;color:#9CA3AF">${'⭐'.repeat(s.d)} · ${getCatLabel(s.cat)}</p>
+          </div>
+          <span class="fav-btn ${isFav?'active':''}" onclick="event.stopPropagation();toggleFav(${s.id})">⭐</span>
+          ${done?'<span style="font-size:20px;color:#34D399">✓</span>':''}
+        </div>`;
+      }).join('')}
+    </div>
+    ${filtered.length===0?'<p style="text-align:center;color:#9CA3AF;margin-top:32px">אין סיפורים בקטגוריה הזו</p>':''}
+  </div>`;
+}
+
+function renderStory(id){
+  const s=getAllStories().find(x=>x.id===id);
+  if(!s) return '<p>סיפור לא נמצא</p>';
+  const words=s.text.split(/\s+/);
+  const vocabWords=(s.v||[]).map(v=>v.w.replace(/[\u0591-\u05C7]/g,''));
+  const isFav=state.favorites.includes(s.id);
+  const wordsHtml=words.map((w,i)=>{
+    const clean=w.replace(/[\u0591-\u05C7]/g,'');
+    const isVocab=vocabWords.some(vw=>clean.includes(vw)||vw.includes(clean));
+    return `<span class="story-word ${isVocab?'vocab-word':''}" data-idx="${i}" data-word="${w}" onclick="handleWordClick(event)">${w}</span>`;
+  }).join(' ');
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <button onclick="navigate('library')" style="background:none;border:none;color:#9CA3AF;cursor:pointer;font-size:14px"><i class="fas fa-arrow-right" style="margin-left:4px"></i> חזרה</button>
+      <span class="fav-btn ${isFav?'active':''}" onclick="toggleFav(${s.id})">⭐</span>
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="text-align:center;margin-bottom:16px">
+        <span style="font-size:48px;display:block;margin-bottom:8px">${s.em}</span>
+        <h2 class="font-title" style="font-size:22px">${s.title}</h2>
+        <p style="font-size:12px;color:#9CA3AF;margin-top:4px">${'⭐'.repeat(s.d)} · ${getCatLabel(s.cat)}</p>
+      </div>
+      <div class="story-text" id="story-text" dir="rtl" style="text-align:right;line-height:2;font-size:1.4rem">
+        ${wordsHtml}
+      </div>
+      <div id="syllable-popup"></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:14px">
+      <button id="btn-read" onclick="startKaraoke(${s.id})" class="btn-primary" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px">
+        🔊 הקרא לי
+      </button>
+      <button onclick="navigate('quiz',{id:${s.id}})" class="btn-quiz" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px">
+        ❓ בוא נבדוק!
+      </button>
+    </div>
+    <button onclick="stopSpeech()" style="width:100%;padding:10px;border:2px solid #e8e8e8;border-radius:16px;background:white;color:#4A5568;font-weight:600;cursor:pointer;margin-bottom:14px">
+      <i class="fas fa-stop"></i> עצור
+    </button>
+    <div style="background:linear-gradient(135deg,#FFF8E1,#FFF3E0);border-radius:16px;padding:14px">
+      <h3 class="font-title" style="font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:6px">📝 מילים חדשות</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">
+        ${(s.v||[]).map(v=>`
+          <div class="word-chip" onclick="speakWord('${v.w}')">
+            <span class="word-chip-nikud">${v.w}</span>
+            <span class="word-chip-meaning">(${v.syl}) ${v.def}</span>
+            <button onclick="event.stopPropagation();saveWord('${v.w}','${v.def}','${v.syl}')" style="background:none;border:none;font-size:18px;cursor:pointer;color:#C084FC;${state.savedWords.find(sw=>sw.w===v.w)?'opacity:0.3':''}">
+              <i class="fas fa-plus-circle"></i>
+            </button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function handleWordClick(e){
+  const word=e.target.dataset.word;
+  if(!word) return;
+  speakWord(word);
+  const s=getAllStories().find(x=>x.id===state.params.id);
+  if(s){
+    const v=(s.v||[]).find(v=>{
+      const cw=word.replace(/[\u0591-\u05C7]/g,'');
+      const cv=v.w.replace(/[\u0591-\u05C7]/g,'');
+      return cw.includes(cv)||cv.includes(cw);
+    });
+    if(v) showSyllablePopup(e.target,v);
+  }
+}
+function showSyllablePopup(el,vocab){
+  const popup=document.getElementById('syllable-popup');
+  if(!popup) return;
+  popup.innerHTML=`<div class="syllable-popup animate-pop" style="position:fixed;top:${el.getBoundingClientRect().top-60}px;right:50%;transform:translateX(50%);">
+    <span style="font-weight:700;color:#C084FC">${vocab.syl}</span>
+    <br><span style="font-size:14px;color:#4A5568">${vocab.def}</span>
+  </div>`;
+  setTimeout(()=>{popup.innerHTML='';},3000);
+}
+function startKaraoke(id){
+  const s=getAllStories().find(x=>x.id===id);
+  if(!s) return;
+  const wordEls=document.querySelectorAll('.story-word');
+  wordEls.forEach(el=>el.classList.remove('highlight'));
+  speakText(s.text,(idx)=>{
+    wordEls.forEach(el=>el.classList.remove('highlight'));
+    if(wordEls[idx]){wordEls[idx].classList.add('highlight');}
+  },()=>{
+    wordEls.forEach(el=>el.classList.remove('highlight'));
+  });
+}
+function stopSpeech(){window.speechSynthesis.cancel();state.isSpeaking=false;document.querySelectorAll('.story-word').forEach(el=>el.classList.remove('highlight'));}
+function saveWord(w,def,syl){
+  if(state.savedWords.find(x=>x.w===w)) return;
+  state.savedWords.push({w,def,syl}); save(); checkBadges(); render();
+}
+
+function renderQuiz(id){
+  const s=getAllStories().find(x=>x.id===id);
+  if(!s) return '<p>סיפור לא נמצא</p>';
+  const results=state.quizResults[id]||{};
+  const allAnswered=s.q.every((_,i)=>results[i]!==undefined);
+  const correct=s.q.filter((_,i)=>results[i]===true).length;
+  if(allAnswered){
+    const perfect=correct===s.q.length;
+    if(!state.completedStories.includes(id)){
+      state.completedStories.push(id);
+      earnStars(correct*2+(perfect?3:0));
+      if(perfect){state.perfectQuizzes=(state.perfectQuizzes||0)+1;}
+      updateStreak(); save(); checkBadges();
+      setTimeout(()=>showConfetti(),300);
+    }
+    return `
+    <div class="p-4 max-w-lg mx-auto text-center" style="position:relative;z-index:2;">
+      <div class="card" style="padding:32px">
+        <div style="font-size:64px;margin-bottom:16px">${perfect?'🎉':'👏'}</div>
+        <h2 class="font-title" style="font-size:24px;margin-bottom:8px">${perfect?'מושלם!':'כל הכבוד!'}</h2>
+        <p style="font-size:18px;margin-bottom:8px">${correct} מתוך ${s.q.length} תשובות נכונות</p>
+        <p style="font-size:20px;color:#FBBF24;margin-bottom:16px">+${correct*2+(perfect?3:0)} ⭐</p>
+        <div style="display:flex;gap:12px;justify-content:center">
+          <button onclick="navigate('story',{id:${id}})" class="btn-primary">קרא שוב</button>
+          <button onclick="navigate('library')" class="btn-quiz">סיפור הבא</button>
+        </div>
+      </div>
+    </div>`;
+  }
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <button onclick="navigate('story',{id:${id}})" style="background:none;border:none;color:#9CA3AF;cursor:pointer;margin-bottom:12px"><i class="fas fa-arrow-right" style="margin-left:4px"></i> חזרה לסיפור</button>
+    <h2 class="font-title text-center" style="font-size:22px;margin-bottom:16px">🧠 בוא נבדוק!</h2>
+    ${s.q.map((q,qi)=>{
+      const answered=results[qi]!==undefined;
+      return `<div class="card" style="margin-bottom:16px;${answered?(results[qi]?'background:rgba(209,250,229,0.9)':'background:rgba(254,226,226,0.9)'):''}">
+        <h3 class="font-title" style="font-size:16px;margin-bottom:12px">${qi+1}. ${q.q}</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${q.o.map((o,oi)=>{
+            let bg='rgba(255,255,255,0.8)';let extra='cursor:pointer;';
+            if(answered){
+              if(oi===q.a){bg='#BBF7D0';extra='font-weight:700;';}
+              else{bg='rgba(255,255,255,0.4)';extra='opacity:0.6;';}
             }
-        ];
-    </script>
-    <script>
-        /**
-         * Hebrew Reading App - Main Logic
-         */
+            return `<div style="padding:12px;border-radius:12px;background:${bg};${extra}transition:all 0.2s" ${answered?'':`onclick="answerQuiz(${id},${qi},${oi},${q.a})"`}>
+              ${o} ${answered&&oi===q.a?'✓':''}
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+function answerQuiz(storyId,qi,chosen,correct){
+  if(!state.quizResults[storyId]) state.quizResults[storyId]={};
+  state.quizResults[storyId][qi]=(chosen===correct);
+  state.totalQAnswered++;if(chosen===correct) state.totalQCorrect++;
+  save();render();
+}
 
-        const App = {
-            // State
-            state: {
-                currentView: 'home',
-                currentStoryId: null,
-                progress: JSON.parse(localStorage.getItem('reading_progress') || '{"completed": [], "stars": 0}'),
-                dailyStories: [],
-                isPlaying: false,
-                currentAudio: null
-            },
+function renderVocab(){
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <h2 class="font-title text-center" style="font-size:22px;margin-bottom:16px">📝 המילים שלי</h2>
+    ${state.savedWords.length===0?
+      '<div class="card" style="text-align:center;padding:32px"><p style="color:#9CA3AF;font-size:18px">עוד לא שמרת מילים</p><p style="color:#D1D5DB;margin-top:8px">לחץ על ➕ ליד מילה בסיפור כדי לשמור</p></div>'
+      :state.savedWords.map((w,i)=>`
+        <div class="card" style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <span style="font-weight:700;font-size:18px">${w.w}</span>
+            <span style="color:#9CA3AF;font-size:13px;margin-right:8px">(${w.syl})</span>
+            <p style="font-size:14px;color:#4A5568">${w.def}</p>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="speakWord('${w.w}')" style="background:none;border:none;color:#60A5FA;font-size:20px;cursor:pointer"><i class="fas fa-volume-up"></i></button>
+            <button onclick="removeWord(${i})" style="background:none;border:none;color:#FCA5A5;font-size:20px;cursor:pointer"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('')}
+    ${state.savedWords.length>=3?`<button onclick="navigate('flashcards')" class="btn-primary" style="width:100%;margin-top:16px"><i class="fas fa-clone" style="margin-left:8px"></i>שחק כרטיסיות!</button>`:''}
+  </div>`;
+}
+function removeWord(i){state.savedWords.splice(i,1);save();render();}
 
-            // DOM Elements
-            elements: {
-                mainContent: document.getElementById('main-content'),
-                confettiContainer: document.getElementById('confetti-container')
-            },
+function renderFlashcards(){
+  if(state.savedWords.length<3) return `
+    <div class="p-4 max-w-lg mx-auto text-center" style="position:relative;z-index:2;">
+      <div class="card" style="padding:32px"><p style="color:#9CA3AF;font-size:18px">צריך לפחות 3 מילים כדי לשחק</p>
+      <button onclick="navigate('vocab')" class="btn-primary" style="margin-top:16px">חזרה למילים</button></div>
+    </div>`;
+  if(!state.params.fcWord){
+    state.params.fcWord=state.savedWords[Math.floor(Math.random()*state.savedWords.length)];
+    state.params.fcScore=state.params.fcScore||0;
+    state.params.fcRound=state.params.fcRound||0;
+    state.params.fcAnswered=false;
+    const others=state.savedWords.filter(w=>w.w!==state.params.fcWord.w);
+    const shuffled=others.sort(()=>Math.random()-0.5).slice(0,2);
+    shuffled.push(state.params.fcWord);
+    state.params.fcOptions=shuffled.sort(()=>Math.random()-0.5);
+  }
+  const fc=state.params;
+  return `
+  <div class="p-4 max-w-lg mx-auto text-center" style="position:relative;z-index:2;">
+    <h2 class="font-title" style="font-size:22px;margin-bottom:8px">🃏 כרטיסיות</h2>
+    <p style="color:#9CA3AF;margin-bottom:16px">ניקוד: ${fc.fcScore} · סיבוב: ${fc.fcRound+1}</p>
+    <div class="card animate-pop" style="padding:32px;margin-bottom:16px">
+      <p style="font-size:32px;font-weight:700;margin-bottom:8px">${fc.fcWord.w}</p>
+      <p style="color:#9CA3AF">(${fc.fcWord.syl})</p>
+      <button onclick="speakWord('${fc.fcWord.w}')" style="margin-top:8px;background:none;border:none;color:#60A5FA;font-size:24px;cursor:pointer"><i class="fas fa-volume-up"></i></button>
+    </div>
+    <p class="font-title" style="margin-bottom:12px">מָה הַמִּלָּה אוֹמֶרֶת?</p>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${fc.fcOptions.map(o=>{
+        let style='cursor:pointer;';
+        if(fc.fcAnswered){
+          if(o.w===fc.fcWord.w) style='background:rgba(209,250,229,0.95);border:2px solid #34D399;';
+          else style='opacity:0.5;';
+        }
+        return `<div class="card" style="${style}" ${fc.fcAnswered?'':`onclick="flashcardAnswer('${o.w}')"`}>
+          <p style="font-weight:600">${o.def}</p>
+        </div>`;
+      }).join('')}
+    </div>
+    ${fc.fcAnswered?`<button onclick="nextFlashcard()" class="btn-primary" style="width:100%;margin-top:16px">הבא! ➡️</button>`:''}
+  </div>`;
+}
+function flashcardAnswer(chosen){
+  state.params.fcAnswered=true;
+  if(chosen===state.params.fcWord.w){state.params.fcScore++;earnStars(1);}
+  render();
+}
+function nextFlashcard(){
+  state.params.fcWord=null;state.params.fcAnswered=false;state.params.fcRound++;
+  if(state.params.fcRound>=state.savedWords.length){
+    const score=state.params.fcScore;state.params={};navigate('vocab');
+    if(score>0) showConfetti();return;
+  }
+  render();
+}
 
-            // Initialization
-            init() {
-                this.loadStories();
-                this.render();
-            },
+function renderRewards(){
+  const pet=PET_STAGES[getPetStage()];
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <h2 class="font-title text-center" style="font-size:22px;margin-bottom:16px">🏆 הפרסים שלי</h2>
+    <div class="card" style="text-align:center;margin-bottom:16px;background:linear-gradient(135deg,rgba(255,248,225,0.95),rgba(255,243,224,0.95))">
+      <div style="font-size:64px;margin-bottom:8px" class="animate-float">${pet.emoji}</div>
+      <h3 class="font-title" style="font-size:20px">${pet.name}</h3>
+      <div style="width:180px;margin:8px auto 4px;height:10px;background:#e8e8e8;border-radius:8px;overflow:hidden">
+        <div style="height:100%;border-radius:8px;background:linear-gradient(90deg,#FBBF24,#FB923C);width:${getPetProgress()}%"></div>
+      </div>
+      <p style="font-size:13px;color:#9CA3AF">${getPetStage()<PET_STAGES.length-1?`עוד ${PET_STAGES[getPetStage()+1].min-state.stars} כוכבים לשלב הבא`:'הגעת לשלב הגבוה ביותר! 🎉'}</p>
+    </div>
+    <div style="display:flex;justify-content:space-around;margin-bottom:16px">
+      <div style="text-align:center"><p style="font-size:24px;font-weight:700;color:#FBBF24">⭐ ${state.stars}</p><p style="font-size:11px;color:#9CA3AF">כוכבים</p></div>
+      <div style="text-align:center"><p style="font-size:24px;font-weight:700;color:#FB923C">🪙 ${state.coins}</p><p style="font-size:11px;color:#9CA3AF">מטבעות</p></div>
+      <div style="text-align:center"><p style="font-size:24px;font-weight:700;color:#EF4444">🔥 ${state.streak}</p><p style="font-size:11px;color:#9CA3AF">ימים</p></div>
+    </div>
+    <h3 class="font-title" style="font-size:18px;margin-bottom:12px">🏅 תגים</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      ${BADGES.map(b=>{
+        const earned=state.earnedBadges.includes(b.id);
+        return `<div class="card ${earned?'':'badge-locked'}" style="text-align:center;padding:16px">
+          <div style="font-size:28px;margin-bottom:4px"><i class="fas ${b.icon}" style="color:${earned?'#FBBF24':'#D1D5DB'}"></i></div>
+          <p class="font-title" style="font-size:13px">${b.name}</p>
+          <p style="font-size:11px;color:#9CA3AF">${b.desc}</p>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
 
-            // Data Management
-            loadStories() {
-                const today = new Date().toDateString();
-                let seed = 0;
-                for (let i = 0; i < today.length; i++) seed += today.charCodeAt(i);
+function renderSettings(){
+  return `
+  <div class="p-4 max-w-lg mx-auto" style="position:relative;z-index:2;">
+    <h2 class="font-title text-center" style="font-size:22px;margin-bottom:16px">⚙️ הגדרות</h2>
+    <div class="card" style="margin-bottom:16px">
+      <h3 class="font-title" style="margin-bottom:12px">🔤 גודל טקסט</h3>
+      <div style="display:flex;gap:8px">
+        ${['small','medium','large'].map(s=>`
+          <button onclick="state.fontSize='${s}';save();render()" style="flex:1;padding:8px;border-radius:12px;font-weight:700;border:none;cursor:pointer;${state.fontSize===s?'background:#C084FC;color:white':'background:rgba(255,255,255,0.8);color:#4A5568'}">
+            ${s==='small'?'קטן':s==='medium'?'בינוני':'גדול'}
+          </button>
+        `).join('')}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <h3 class="font-title" style="margin-bottom:12px">🗣️ מהירות קריאה</h3>
+      <input type="range" min="0.5" max="1.2" step="0.1" value="${state.readingSpeed}" oninput="state.readingSpeed=parseFloat(this.value);save()" style="width:100%;accent-color:#C084FC">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:#9CA3AF"><span>איטי 🐢</span><span>מהיר 🐇</span></div>
+    </div>
+    <button onclick="if(confirm('למחוק את כל ההתקדמות?')){localStorage.removeItem('hebrewReadApp');location.reload()}" class="card" style="width:100%;text-align:center;padding:16px;color:#EF4444;cursor:pointer;border:none">
+      <i class="fas fa-trash" style="margin-left:8px"></i> אפס התקדמות
+    </button>
+  </div>`;
+}
 
-                const seedRandom = (s) => {
-                    const mask = 0xffffffff;
-                    let m_w = (123456789 + s) & mask;
-                    let m_z = (987654321 - s) & mask;
-                    return () => {
-                        m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
-                        m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
-                        let result = ((m_z << 16) + m_w) & mask;
-                        result /= 4294967296;
-                        return result + 0.5;
-                    };
-                };
+function showGenerateModal(){
+  const div=document.createElement('div');
+  div.id='generateModal';
+  div.style.cssText='position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4)';
+  div.onclick=e=>{if(e.target===div)div.remove();};
+  div.innerHTML=`<div class="card" style="max-width:360px;width:90%;padding:24px;max-height:80vh;overflow-y:auto" onclick="event.stopPropagation()">
+    <h3 class="font-title" style="font-size:20px;text-align:center;margin-bottom:16px">✨ צור סיפור חדש</h3>
+    <div style="margin-bottom:16px">
+      <label style="font-size:13px;font-weight:600;display:block;margin-bottom:8px">📚 בחר נושא</label>
+      <div id="topicBtns" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        ${[{v:'animals',l:'🐾 חיות'},{v:'nature',l:'🌳 טבע'},{v:'family',l:'👨‍👩‍👧 משפחה'},{v:'adventure',l:'🗺️ הרפתקאות'},{v:'food',l:'🍕 אוכל'},{v:'school',l:'🏫 בית ספר'}].map(t=>
+          `<button onclick="document.querySelectorAll('#topicBtns button').forEach(b=>{b.style.background='rgba(255,255,255,0.8)';b.style.color='#4A5568'});this.style.background='#C084FC';this.style.color='white';document.getElementById('selTopic').value='${t.v}'" style="padding:10px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.8);transition:all 0.2s">${t.l}</button>`
+        ).join('')}
+      </div>
+      <input type="hidden" id="selTopic" value="">
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-size:13px;font-weight:600;display:block;margin-bottom:8px">⭐ רמת קושי</label>
+      <div id="diffBtns" style="display:flex;gap:8px">
+        ${[{d:1,l:'⭐ קל'},{d:2,l:'⭐⭐ בינוני'},{d:3,l:'⭐⭐⭐ מאתגר'}].map(x=>
+          `<button onclick="document.querySelectorAll('#diffBtns button').forEach(b=>{b.style.background='rgba(255,255,255,0.8)';b.style.color='#4A5568'});this.style.background='#FF6B9D';this.style.color='white';document.getElementById('selDiff').value='${x.d}'" style="flex:1;padding:10px;border-radius:12px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:rgba(255,255,255,0.8);transition:all 0.2s">${x.l}</button>`
+        ).join('')}
+      </div>
+      <input type="hidden" id="selDiff" value="">
+    </div>
+    <details style="margin-bottom:12px">
+      <summary style="font-size:12px;color:#9CA3AF;cursor:pointer">🔑 מפתח API (אופציונלי - לסיפורים עם AI)</summary>
+      <div style="margin-top:8px">
+        <input id="apiKeyInput" type="password" placeholder="sk-ant-..." value="${state.apiKey||''}" style="width:100%;padding:10px;border:2px solid #e8e8e8;border-radius:12px;font-size:14px;direction:ltr" />
+        <p style="font-size:11px;color:#9CA3AF;margin-top:4px">בלי מפתח ייווצר סיפור מתבניות מוכנות</p>
+      </div>
+    </details>
+    <div id="genStatus" style="display:none;text-align:center;padding:16px">
+      <div style="font-size:32px;animation:float 2s ease-in-out infinite">✨</div>
+      <p class="font-title" style="margin-top:8px">יוצר סיפור מיוחד...</p>
+    </div>
+    <div id="genButtons" style="display:flex;gap:8px">
+      <button onclick="generateStory()" class="btn-primary" style="flex:1">✨ צור סיפור!</button>
+      <button onclick="document.getElementById('generateModal').remove()" style="flex:1;padding:14px;border:2px solid #e8e8e8;border-radius:16px;background:white;font-weight:600;cursor:pointer">ביטול</button>
+    </div>
+  </div>`;
+  document.body.appendChild(div);
+}
 
-                const random = seedRandom(seed);
-                const shuffled = [...ALL_STORIES].sort(() => 0.5 - random());
-                this.state.dailyStories = shuffled.slice(0, 6);
-            },
+// Template-based story generation (no API needed)
+const STORY_TEMPLATES={
+  animals:[
+    {title:'הָאַרְנָב וְהַגָּזֶר',text:'אַרְנָב קָטָן וְלָבָן גָּר בְּחוֹרָה בָּאָרֶץ. כָּל בֹּקֶר הוּא יוֹצֵא לְחַפֵּשׂ אוֹכֶל בַּגִּנָּה. הוּא מָצָא גָּזֶר כָּתֹם גָּדוֹל וּטְעִים בַּאֲדָמָה. הָאַרְנָב שָׂמַח מְאוֹד וְאָכַל אוֹתוֹ לְאַט. אַחַר כָּךְ הוּא חָזַר הַבַּיְתָה לָנוּחַ.',em:'🐰',v:[{w:'גָּזֶר',def:'יֶרֶק כָּתֹם אָרוּךְ',syl:'גָּ-זֶר'}],q:[{q:'מָה הָאַרְנָב מָצָא?',o:['תַּפּוּחַ','גָּזֶר','פֶּרַח'],a:1},{q:'אֵיפֹה הָאַרְנָב גָּר?',o:['עַל עֵץ','בְּחוֹרָה','בַּמַּיִם'],a:1}]},
+    {title:'הַצָּב הָאִטִּי',text:'צָב קָטָן הוֹלֵךְ לְאַט עַל הַדֶּרֶךְ. חַיּוֹת אֲחֵרוֹת רָצוֹת מַהֵר לְיָדוֹ. הָאַרְנָב קוֹפֵץ, הַצִּפּוֹר עָפָה, אֲבָל הַצָּב לֹא מִתְרַגֵּשׁ. הוּא יוֹדֵעַ שֶׁגַּם לְאַט אֶפְשָׁר לְהַגִּיעַ רָחוֹק. בַּסוֹף כֻּלָּם נָחִים וְהַצָּב עוֹדֶנּוּ הוֹלֵךְ.',em:'🐢',v:[{w:'אִטִּי',def:'בֶּרֶגַע לֹא מַהֵר',syl:'אִ-טִּי'}],q:[{q:'אֵיךְ הַצָּב הוֹלֵךְ?',o:['מַהֵר','לְאַט','קוֹפֵץ'],a:1},{q:'מָה הַצָּב יוֹדֵעַ?',o:['לָעוּף','לָשִׁיר','שֶׁאֶפְשָׁר לְהַגִּיעַ לְאַט'],a:2}]},
+    {title:'הַתּוּכִּי הַמְּדַבֵּר',text:'בַּחֲנוּת לְחַיּוֹת יֵשׁ תּוּכִּי צִבְעוֹנִי וּמְיֻחָד. הוּא יוֹדֵעַ לְדַבֵּר מִלִּים בְּעִבְרִית! כְּשֶׁאֲנָשִׁים נִכְנָסִים הוּא אוֹמֵר: שָׁלוֹם! כֻּלָּם צוֹחֲקִים וּמְחַיְּכִים אֵלָיו. הַתּוּכִּי אוֹהֵב אֶת הַתַּשׂוּמַת לֵב.',em:'🦜',v:[{w:'תּוּכִּי',def:'צִפּוֹר צִבְעוֹנִית שֶׁיְּכוֹלָה לְדַבֵּר',syl:'תּוּ-כִּי'}],q:[{q:'מָה הַתּוּכִּי יוֹדֵעַ לַעֲשׂוֹת?',o:['לָשִׁיר','לְדַבֵּר','לִרְקוֹד'],a:1},{q:'מָה הַתּוּכִּי אוֹמֵר?',o:['לְהִתְרָאוֹת','שָׁלוֹם','תּוֹדָה'],a:1}]}
+  ],
+  nature:[
+    {title:'הָעֵץ הַגָּבוֹהַּ',text:'בַּפַּארְק יֵשׁ עֵץ גָּבוֹהַּ מְאוֹד עִם עָלִים יְרוּקִים. צִפּוֹרִים בּוֹנוֹת קִנִּים עַל הָעֲנָפִים שֶׁלּוֹ. יְלָדִים מְשַׂחֲקִים בַּצֵּל שֶׁלוֹ כְּשֶׁחַם בַּחוּץ. בַּסְּתָו הָעָלִים נוֹפְלִים וְהָעֵץ נִרְדָּם. בָּאָבִיב הוּא מִתְעוֹרֵר עִם עָלִים חֲדָשִׁים.',em:'🌳',v:[{w:'עֲנָפִים',def:'הַחֲלָקִים שֶׁל הָעֵץ שֶׁמִּתְפַּצְּלִים',syl:'עֲ-נָ-פִים'}],q:[{q:'מָה הַצִּפּוֹרִים בּוֹנוֹת עַל הָעֵץ?',o:['בַּיִת','קִנִּים','גֶּשֶׁר'],a:1},{q:'מָה קוֹרֶה בָּאָבִיב?',o:['הָעֵץ נוֹפֵל','עָלִים חֲדָשִׁים','שֶׁלֶג'],a:1}]},
+    {title:'הַנָּהָר הַזּוֹרֵם',text:'נָהָר קָטָן זוֹרֵם בֵּין הָהָרִים הַיְּרוּקִים. הַמַּיִם צְלוּלִים וְקָרִים מְאוֹד. דָּגִים קְטַנִּים שָׂטִים בַּמַּיִם בִּמְהִירוּת. עַל הַגְּדָה יוֹשֶׁבֶת צְפַרְדֵּעַ יְרוּקָּה. הִיא קוֹפֶצֶת לַמַּיִם בְּשַׁאֲגָה: קְרוֹ-קְרוֹ!',em:'🏞️',v:[{w:'נָהָר',def:'זֶרֶם מַיִם אָרוּךְ בַּטֶּבַע',syl:'נָ-הָר'}],q:[{q:'אֵיךְ הַמַּיִם בַּנָּהָר?',o:['חַמִּים','צְלוּלִים וְקָרִים','מְלוּכְלָכִים'],a:1},{q:'מִי יוֹשֶׁבֶת עַל הַגְּדָה?',o:['צִפּוֹר','חָתוּל','צְפַרְדֵּעַ'],a:2}]}
+  ],
+  family:[
+    {title:'סָבָא מְסַפֵּר',text:'סָבָא שֶׁלִּי יוֹדֵעַ סִפּוּרִים מַדְהִימִים מִזְּמַן. כָּל שַׁבָּת אֲנַחְנוּ יוֹשְׁבִים לְיָדוֹ בַּסָּלוֹן. הוּא מְסַפֵּר עַל הַרְפַּתְקָאוֹת מִכְּשֶׁהָיָה יֶלֶד קָטָן. הָעֵינַיִם שֶׁלּוֹ נוֹצְצוֹת כְּשֶׁהוּא מְסַפֵּר. אֲנִי רוֹצֶה לִהְיוֹת כְּמוֹ סָבָא כְּשֶׁאֶגְדַּל.',em:'👴',v:[{w:'סָבָא',def:'אַבָּא שֶׁל אַבָּא אוֹ שֶׁל אִמָּא',syl:'סָ-בָא'}],q:[{q:'מָתַי סָבָא מְסַפֵּר?',o:['בַּבֹּקֶר','כָּל שַׁבָּת','בַּלַּיְלָה'],a:1},{q:'מָה הַיֶּלֶד רוֹצֶה?',o:['צַעֲצוּעַ','לִהְיוֹת כְּמוֹ סָבָא','לָנוּחַ'],a:1}]},
+    {title:'אָח קָטָן חָדָשׁ',text:'הַיּוֹם הִגִּיעַ אָח קָטָן חָדָשׁ לַמִּשְׁפָּחָה שֶׁלָּנוּ! הוּא קָטָן מְאוֹד עִם עֵינַיִם גְּדוֹלוֹת וְיָפוֹת. אִמָּא מַחְזִיקָה אוֹתוֹ בַּיָּדַיִם בְּעַדִּינוּת. אֲנִי נוֹגַעַת בַּיָּד הַקְּטַנָּה שֶׁלּוֹ וְהוּא תּוֹפֵס אֶת הָאֶצְבַּע שֶׁלִּי. אֲנִי כְּבָר אוֹהֶבֶת אוֹתוֹ!',em:'👶',v:[{w:'עַדִּינוּת',def:'לְאַט וּבִזְהִירוּת',syl:'עַ-דִּי-נוּת'}],q:[{q:'מִי הִגִּיעַ לַמִּשְׁפָּחָה?',o:['כֶּלֶב','אָח קָטָן','חָבֵר'],a:1},{q:'מָה הַתִּינוֹק עוֹשֶׂה?',o:['בּוֹכֶה','יָשֵׁן','תּוֹפֵס אֶצְבַּע'],a:2}]}
+  ],
+  adventure:[
+    {title:'אוֹצָר בַּחֲצֵר',text:'מָצָאתִי מַפָּה יְשָׁנָה בַּאַרְגָּז שֶׁל סָבָא. בַּמַּפָּה יֵשׁ אִקְס אָדוֹם בַּחֲצֵר שֶׁלָּנוּ! לָקַחְתִּי אֵת וְהִתְחַלְתִּי לַחְפּוֹר. חָפַרְתִּי וְחָפַרְתִּי עַד שֶׁמָּצָאתִי קוּפְסָה. בַּקּוּפְסָה הָיוּ מַטְבְּעוֹת יְשָׁנוֹת וּמְעַנְיְינוֹת.',em:'🗺️',v:[{w:'אוֹצָר',def:'דָּבָר יָקָר וּמְיֻחָד שֶׁמּוֹצְאִים',syl:'אוֹ-צָר'}],q:[{q:'מָה הַיֶּלֶד מָצָא בַּמַּפָּה?',o:['תְּמוּנָה','אִקְס אָדוֹם','מִכְתָּב'],a:1},{q:'מָה הָיָה בַּקּוּפְסָה?',o:['צַעֲצוּעַ','מַטְבְּעוֹת','מַפְתֵּחוֹת'],a:1}]},
+    {title:'הַמַּעְיָן הַנִּסְתָּר',text:'בַּטִּיּוּל עִם אַבָּא בַּיַּעַר שָׁמַעְנוּ רַעַשׁ מַיִם. הָלַכְנוּ עַל שְׁבִיל צַר בֵּין הָעֵצִים. פִּתְאוֹם רָאִינוּ מַעְיָן עִם מַיִם צְלוּלִים. הַמַּיִם זָרְמוּ מִבֵּין הַסְּלָעִים לְתוֹךְ בְּרֵכָה קְטַנָּה. שָׁתִינוּ מַיִם קָרִים וְטוֹבִים.',em:'⛰️',v:[{w:'מַעְיָן',def:'מָקוֹם שֶׁמַּיִם יוֹצְאִים מֵהָאֲדָמָה',syl:'מַעְ-יָן'}],q:[{q:'מָה שָׁמְעוּ בַּיַּעַר?',o:['צִפּוֹרִים','רַעַשׁ מַיִם','רוּחַ'],a:1},{q:'מֵאֵיפֹה בָּאוּ הַמַּיִם?',o:['מֵהַשָּׁמַיִם','מֵהָעֵצִים','מֵהַסְּלָעִים'],a:2}]}
+  ],
+  food:[
+    {title:'הַפִּיצָּה שֶׁלִּי',text:'הַיּוֹם הֵכַנּוּ פִּיצָּה בַּבַּיִת עִם כֹּל הַמִּשְׁפָּחָה. לָשְׁנוּ אֶת הַבָּצֵק עִם הַיָּדַיִם. שַׂמְנוּ רוֹטֶב עַגְבָנִיּוֹת וְגְבִינָה צְהֻבָּה. אֲנִי הוֹסַפְתִּי זֵיתִים שְׁחוֹרִים כִּי אֲנִי אוֹהֵב. אַחֲרֵי הַתַּנּוּר הַפִּיצָּה הָיְתָה טְעִימָה!',em:'🍕',v:[{w:'בָּצֵק',def:'תַּעֲרוֹבֶת שֶׁל קֶמַח וּמַיִם',syl:'בָּ-צֵק'}],q:[{q:'מָה שַׂמוּ עַל הַפִּיצָּה?',o:['שׁוֹקוֹלָד','רוֹטֶב וּגְבִינָה','בָּנָנוֹת'],a:1},{q:'מָה הַיֶּלֶד הוֹסִיף?',o:['תִּירָס','זֵיתִים','פִּטְרִיּוֹת'],a:1}]},
+    {title:'שׁוֹקוֹלָד חָם',text:'בַּחוּץ קַר מְאוֹד וְיוֹרֵד גֶּשֶׁם. אִמָּא הֵכִינָה לִי שׁוֹקוֹלָד חָם בַּכּוֹס הַגְּדוֹלָה. הִיא הוֹסִיפָה קְצָפָת לְבָנָה לְמַעְלָה. אֲנִי מְחַמֵּם אֶת הַיָּדַיִם עַל הַכּוֹס. כָּל לְגִימָה מָתוֹקָה וּמְחַמֶּמֶת אֶת הַלֵּב.',em:'☕',v:[{w:'קְצָפָת',def:'שַׁמֶּנֶת מָתוֹק שֶׁשָּׂמִים עַל שְׁתִיָּה',syl:'קְ-צָ-פָת'}],q:[{q:'מָה אִמָּא הֵכִינָה?',o:['תֵּה','שׁוֹקוֹלָד חָם','מִיץ'],a:1},{q:'מָה הוֹסִיפָה לְמַעְלָה?',o:['סוּכָּר','קְצָפָת','עוּגִיָּה'],a:1}]}
+  ],
+  school:[
+    {title:'הַצִּיּוּר שֶׁלִּי',text:'בַּשִּׁעוּר אֹמָּנוּת צִיַּרְתִּי תְּמוּנָה מְיֻחֶדֶת. צִיַּרְתִּי בַּיִת עִם גִּנָּה מָלֵאָה פְּרָחִים צִבְעוֹנִיִּים. הַמּוֹרָה אָמְרָה שֶׁזֶּה צִיּוּר יָפֶה מְאוֹד. הִיא תָּלְתָה אוֹתוֹ עַל הַקִּיר בַּכִּתָּה. אֲנִי גֵּאָה בְּעַצְמִי כִּי עָבַדְתִּי קָשֶׁה.',em:'🎨',v:[{w:'אֹמָּנוּת',def:'שִׁעוּר שֶׁבּוֹ מְצַיְּרִים וְיוֹצְרִים',syl:'אֹ-מָּ-נוּת'}],q:[{q:'מָה הַיֶּלֶד צִיֵּר?',o:['חָתוּל','בַּיִת עִם גִּנָּה','מְכוֹנִית'],a:1},{q:'מָה הַמּוֹרָה עָשְׂתָה?',o:['כָּעֲסָה','תָּלְתָה עַל הַקִּיר','זָרְקָה'],a:1}]},
+    {title:'הַסֵּפֶר הַמַּדְהִים',text:'בַּסִּפְרִיָּה מָצָאתִי סֵפֶר עִם עֲטִיפָה מְנַצְנֶצֶת. הַסֵּפֶר מְסַפֵּר עַל יֶלֶד שֶׁגִּלָּה עוֹלָם קָסוּם. קָרָאתִי דַּף אַחֲרֵי דַּף בְּלִי לְהַפְסִיק. הַדְּמוּיוֹת בַּסֵּפֶר הֵם כְּמוֹ חֲבֵרִים אֲמִתִּיִּים. אֲנִי לֹא יְכוֹלָה לְחַכּוֹת לִקְרוֹא עוֹד!',em:'📖',v:[{w:'סִפְרִיָּה',def:'מָקוֹם עִם הַרְבֵּה סְפָרִים לְהַשְׁאָלָה',syl:'סִפְ-רִ-יָּה'}],q:[{q:'אֵיפֹה הַיַּלְדָּה מָצְאָה אֶת הַסֵּפֶר?',o:['בַּבַּיִת','בַּסִּפְרִיָּה','בַּפַּארְק'],a:1},{q:'עַל מָה הַסֵּפֶר?',o:['חַיּוֹת','עוֹלָם קָסוּם','אוֹכֶל'],a:1}]}
+  ]
+};
 
-            // View Management
-            setView(view, storyId = null) {
-                this.stopAudio();
-                this.state.currentView = view;
-                this.state.currentStoryId = storyId;
-                this.render();
-                window.scrollTo(0, 0);
-            },
+async function generateStory(){
+  const topic=document.getElementById('selTopic').value;
+  const diff=document.getElementById('selDiff').value;
+  if(!topic){alert('נא לבחור נושא');return;}
+  if(!diff){alert('נא לבחור רמת קושי');return;}
+  const keyInput=document.getElementById('apiKeyInput');
+  if(keyInput && keyInput.value) { state.apiKey=keyInput.value; save(); }
 
-            // Rendering
-            render() {
-                const { mainContent } = this.elements;
-                mainContent.innerHTML = '';
+  document.getElementById('genStatus').style.display='block';
+  document.getElementById('genButtons').style.display='none';
 
-                if (this.state.currentView === 'home') {
-                    this.renderHome(mainContent);
-                } else if (this.state.currentView === 'reader') {
-                    this.renderReader(mainContent);
-                }
-            },
+  const diffNum=parseInt(diff);
+  const newId=1000+Date.now()%100000;
 
-            renderHome(container) {
-                const progressHtml = `
-            <div class="bg-white rounded-2xl p-6 shadow-lg mb-8 border-b-4 border-blue-100 fade-in">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-slate-700">ההתקדמות שלי</h2>
-                    <div class="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-full border border-yellow-100">
-                        <span class="text-2xl">⭐</span>
-                        <span class="text-xl font-bold text-yellow-600">${this.state.progress.stars}</span>
-                    </div>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-400 to-purple-500 h-full transition-all duration-1000" 
-                         style="width: ${(this.state.progress.completed.length / 20) * 100}%"></div>
-                </div>
-                <p class="text-sm text-slate-400 mt-2 text-left">
-                    קראת ${this.state.progress.completed.length} סיפורים
-                </p>
-            </div>
-        `;
+  // Try API first if key exists
+  if(state.apiKey){
+    try{
+      const topicHeb={animals:'בעלי חיים',nature:'טבע',family:'משפחה',adventure:'הרפתקאות',food:'אוכל',school:'בית ספר'}[topic]||topic;
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':state.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({
+          model:'claude-sonnet-4-5-20250929',
+          max_tokens:1024,
+          messages:[{role:'user',content:`צור סיפור קצר בעברית לילד בן 7. הסיפור חייב להיות בדיוק 30-40 מילים עם ניקוד מלא. הנושא: ${topicHeb}. רמת קושי: ${diffNum} מתוך 3.
 
-                const storiesHtml = `
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${this.state.dailyStories.map(story => {
-                    const isCompleted = this.state.progress.completed.includes(story.id);
-                    return `
-                    <div onclick="App.setView('reader', '${story.id}')" 
-                         class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all cursor-pointer border-2 ${isCompleted ? 'border-green-200 bg-green-50/30' : 'border-transparent hover:border-blue-200'} group relative overflow-hidden fade-in">
-                        
-                        ${isCompleted ? '<div class="absolute top-3 left-3 text-green-500 bg-white rounded-full p-1 shadow-sm"><i class="fa-solid fa-check"></i></div>' : ''}
-                        
-                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 origin-bottom-right">${story.emoji}</div>
-                        <h3 class="text-xl font-bold text-slate-800 mb-2">${story.title}</h3>
-                        
-                        <div class="flex items-center justify-between mt-4">
-                            <div class="flex gap-1">
-                                ${Array(story.difficulty).fill('<i class="fa-solid fa-star text-yellow-400 text-xs"></i>').join('')}
-                            </div>
-                            <span class="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded-lg">
-                                ${story.wordCount} מילים
-                            </span>
-                        </div>
-                    </div>
-                    `;
-                }).join('')}
-            </div>
-        `;
+החזר JSON בלבד (בלי markdown, בלי backticks):
+{"title":"כותרת עם ניקוד","text":"טקסט 30-40 מילים עם ניקוד","em":"אימוג'י","q":[{"q":"שאלה","o":["א","ב","ג"],"a":0}],"v":[{"w":"מילה","def":"הגדרה","syl":"הב-רות"}]}`}]
+        })
+      });
+      const data=await resp.json();
+      if(data.error) throw new Error(data.error.message);
+      const parsed=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,''));
+      const story={id:newId,title:parsed.title,text:parsed.text,d:diffNum,cat:topic,em:parsed.em||'📖',q:parsed.q||[],v:parsed.v||[]};
+      state.generatedStories.push(story);save();
+      document.getElementById('generateModal').remove();
+      navigate('story',{id:newId});
+      return;
+    }catch(e){
+      console.log('API failed, falling back to templates:',e.message);
+    }
+  }
 
-                container.innerHTML = progressHtml + storiesHtml;
-            },
+  // Fallback: use template stories
+  const templates=STORY_TEMPLATES[topic]||STORY_TEMPLATES.animals;
+  // Pick a random template not already used
+  const usedTitles=state.generatedStories.map(s=>s.title);
+  const available=templates.filter(t=>!usedTitles.includes(t.title));
+  const template=(available.length?available:templates)[Math.floor(Math.random()*(available.length||templates.length))];
+  const story={id:newId,title:template.title,text:template.text,d:diffNum,cat:topic,em:template.em,q:template.q||[],v:template.v||[]};
+  state.generatedStories.push(story);save();
 
-            renderReader(container) {
-                const story = this.state.dailyStories.find(s => s.id === this.state.currentStoryId);
-                if (!story) return this.setView('home');
+  // Small delay for UX
+  setTimeout(()=>{
+    document.getElementById('generateModal').remove();
+    navigate('story',{id:newId});
+  },800);
+}
 
-                const isCompleted = this.state.progress.completed.includes(story.id);
+function init(){
+  load(); updateStreak();
+  // Pre-warm speech synthesis voices
+  speechSynthesis.getVoices();
+  speechSynthesis.onvoiceschanged=()=>{
+    const voices=speechSynthesis.getVoices();
+    console.log('Available Hebrew voices:',voices.filter(v=>v.lang.startsWith('he')).map(v=>v.name+' ('+v.lang+')'));
+  };
+  render();
+}
+init();
 
-                container.innerHTML = `
-            <div class="max-w-2xl mx-auto fade-in">
-                <button onclick="App.setView('home')" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-blue-500 transition-colors font-medium">
-                    <i class="fa-solid fa-arrow-right"></i> חזרה לרשימה
-                </button>
-
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-b-8 border-purple-100">
-                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-8 text-center relative">
-                        <div class="text-8xl animate-float inline-block filter drop-shadow-lg">${story.emoji}</div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mt-6 mb-2">${story.title}</h1>
-                        <div class="flex justify-center gap-1 mb-4">
-                            ${Array(story.difficulty).fill('<i class="fa-solid fa-star text-yellow-400"></i>').join('')}
-                        </div>
-                    </div>
-
-                    <div class="px-8 py-4 bg-slate-50 border-b border-slate-100 flex justify-between items-center sticky top-0 z-10">
-                        <button id="tts-btn" onclick="App.toggleAudio()" class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl transition-colors shadow-md active:scale-95">
-                            <i class="fa-solid fa-volume-high"></i>
-                            <span>הקרא לי</span>
-                        </button>
-                        
-                        <button onclick="App.markAsComplete('${story.id}')" 
-                                class="${isCompleted ? 'bg-green-100 text-green-600 cursor-default' : 'bg-green-500 hover:bg-green-600 text-white shadow-md active:scale-95'} px-6 py-2 rounded-xl transition-all font-bold flex items-center gap-2">
-                            ${isCompleted ? '<i class="fa-solid fa-check"></i> קראתי כבר' : '<span>סיימתי לקרוא!</span> <i class="fa-solid fa-trophy"></i>'}
-                        </button>
-                    </div>
-
-                    <div class="p-8 md:p-12 text-2xl md:text-3xl leading-relaxed text-slate-700 font-medium text-justify" style="line-height: 2;">
-                        ${story.content.replace(/\n/g, '<br><br>')}
-                    </div>
-                </div>
-            </div>
-        `;
-            },
-
-            markAsComplete(storyId) {
-                if (this.state.progress.completed.includes(storyId)) return;
-
-                const story = this.state.dailyStories.find(s => s.id === storyId);
-
-                this.state.progress.completed.push(storyId);
-                this.state.progress.stars += story.difficulty;
-
-                localStorage.setItem('reading_progress', JSON.stringify(this.state.progress));
-
-                this.triggerConfetti();
-                this.render();
-            },
-
-            triggerConfetti() {
-                const container = this.elements.confettiContainer;
-                container.classList.remove('hidden');
-                container.innerHTML = '';
-
-                const colors = ['#4facfe', '#a18cd1', '#fbc2eb', '#a6c1ee', '#ff9a9e'];
-
-                for (let i = 0; i < 50; i++) {
-                    const el = document.createElement('div');
-                    el.classList.add('confetti');
-                    el.style.left = Math.random() * 100 + 'vw';
-                    el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    el.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    el.style.animationDelay = (Math.random() * 2) + 's';
-                    container.appendChild(el);
-                }
-
-                setTimeout(() => {
-                    container.classList.add('hidden');
-                    container.innerHTML = '';
-                }, 5000);
-            },
-
-            removeNikud(text) {
-                return text.replace(/[\u0591-\u05C7]/g, '');
-            },
-
-            stopAudio() {
-                window.speechSynthesis.cancel();
-                this.state.isPlaying = false;
-
-                const btn = document.getElementById('tts-btn');
-                if (btn) {
-                    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> <span>הקרא לי</span>';
-                    btn.classList.remove('bg-red-500', 'hover:bg-red-600');
-                    btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
-                    btn.disabled = false;
-                }
-            },
-
-            async toggleAudio() {
-                if (this.state.isPlaying) {
-                    this.stopAudio();
-                    return;
-                }
-
-                const story = this.state.dailyStories.find(s => s.id === this.state.currentStoryId);
-                if (!story) return;
-
-                const btn = document.getElementById('tts-btn');
-                if (btn) {
-                    btn.innerHTML = '<i class="fa-solid fa-stop"></i> <span>עוצר...</span>';
-                    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
-                    btn.classList.add('bg-red-500', 'hover:bg-red-600');
-                }
-
-                this.state.isPlaying = true;
-
-                try {
-                    const cleanText = this.removeNikud(story.content);
-                    const utterance = new SpeechSynthesisUtterance(cleanText);
-                    utterance.lang = 'he-IL';
-                    utterance.rate = 0.85;
-                    utterance.pitch = 1.1;
-
-                    // Try to find a Hebrew voice
-                    const voices = window.speechSynthesis.getVoices();
-                    const hebrewVoice = voices.find(v => v.lang.startsWith('he'));
-                    if (hebrewVoice) utterance.voice = hebrewVoice;
-
-                    utterance.onend = () => {
-                        this.stopAudio();
-                    };
-
-                    utterance.onerror = (e) => {
-                        console.error('TTS Error', e);
-                        this.stopAudio();
-                    };
-
-                    window.speechSynthesis.speak(utterance);
-                } catch (err) {
-                    console.error(err);
-                    alert('שגיאה בהשמעת הסיפור');
-                    this.stopAudio();
-                }
-            }
-        };
-
-        // Start App
-        document.addEventListener('DOMContentLoaded', () => {
-            App.init();
-        });
-    </script>
+</script>
 </body>
-
 </html>
